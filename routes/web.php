@@ -24,8 +24,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/admin', function () {
-    return view('admin');
-})->middleware('isAdmin')->name('1');
+    return view('admin.adminDash');
+})->middleware('isAdmin')->name('adminDash');
+
+Route::get('/tambahdokter', function () {
+    return view('admin.tambahDokter');
+})->middleware('isAdmin')->name('tambahDokter');
 
 //Auth user
 Route::middleware('auth')->group(function () {

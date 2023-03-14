@@ -5,17 +5,43 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
+                    
+                @if (Auth::user()->role == '0')
                     <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
+                @elseif (Auth::user()->role == '1')
+                
+                    <a href="{{ route('adminDash') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    </a>
+
+                @endif
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @if (Auth::user()->role == '0')
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @elseif (Auth::user()->role == '1')
+                
+                    <x-nav-link :href="route('adminDash')" :active="request()->routeIs('adminDash')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+
+                    @endif
                 </div>
+                
+                @if (Auth::user()->role == '1')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('tambahDokter')" :active="request()->routeIs('tambahDokter')">
+                            {{ __('Tambah Dokter  ') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
             </div>
 
             <!-- Settings Dropdown -->
