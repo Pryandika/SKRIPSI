@@ -25,11 +25,11 @@ Route::get('/dashboard', function () {
 
 Route::get('/admin', function () {
     return view('admin.adminDash');
-})->middleware('isAdmin')->name('adminDash');
+})->middleware('auth')->name('adminDash');
 
 Route::get('/tambahdokter', function () {
     return view('admin.tambahDokter');
-})->middleware('isAdmin')->name('tambahDokter');
+})->middleware('auth')->name('tambahDokter');
 
 //Auth user
 Route::middleware('auth')->group(function () {
