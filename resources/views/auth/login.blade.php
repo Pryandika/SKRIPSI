@@ -1,6 +1,11 @@
 <x-guest-layout>
+    <div class="mx-auto my-2">
+        <h1 class="fs-3">LOGIN</h1>
+        <hr>
+    </div>
+
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <x-auth-session-status class="mb-5" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
@@ -32,16 +37,25 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
+        <div class="flex items-center mt-4 mb-4">
             <x-primary-button class="ml-3">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
     </form>
+
+    <hr>
+    <div class="flex items-center mt-4 ml-3">
+            <a class="underline text-sm text-gray-600 hover:text-gray-600 rounded-md">
+                {{ __('Pengguna Baru?') }}
+            </a>
+    </div>
+
+    <div class="flex items-center mt-2">
+        <a href="{{ route('register') }}">
+            <x-primary-button class="ml-3" href="/register">
+                {{ ('Register') }}
+            </x-primary-button>
+        </a>
+    </div>
 </x-guest-layout>
