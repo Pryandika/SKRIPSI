@@ -20,17 +20,13 @@
     <title>Admin</title>
 </head>
 
-
-
 <body>
     <x-app-layout>
         <div id="container">
             <div id="map"></div>
             <div id="sidebar">
-              <p>Total Distance: <span id="total"></span></p>
+              <p>Waktu : <span id="waktu"></span></p>
               <div id="panel"></div>
-              <div id="lat" value=''></div>
-              <div id="long" value=''></div>
             </div>
           </div>
 </x-app-layout>
