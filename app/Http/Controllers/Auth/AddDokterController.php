@@ -34,6 +34,9 @@ class AddDokterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => '2',
+            'alamat' => '-',
+            'lahir' => '1111-11-11',
+            'hp' => '-',
         ]);
         
 

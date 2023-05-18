@@ -54,14 +54,14 @@
         <!-- Tanggal Lahir -->
         <div class="mt-4">
             <x-input-label for="lahir" :value="__('Tanggal Lahir')" />
-            <x-text-input id="lahir" class="block mt-1 w-full" type="text" name="lahir" :value="old('lahir')" required autofocus autocomplete="lahir" />
+            <x-text-input id="lahir" class="block mt-1 w-full" type="date" name="lahir" :value="old('lahir')" required autofocus />
             <x-input-error :messages="$errors->get('lahir')" class="mt-2" />
         </div>    
         
         <!-- No HP -->
         <div class="mt-4">
             <x-input-label for="hp" :value="__('No HP')" />
-            <x-text-input id="hp" class="block mt-1 w-full" type="text" name="hp" :value="old('hp')" required autofocus autocomplete="hp" />
+            <x-text-input id="hp" class="block mt-1 w-full" type="text" name="hp" :value="old('hp')" required autofocus/>
             <x-input-error :messages="$errors->get('hp')" class="mt-2" />
         </div>       
 
