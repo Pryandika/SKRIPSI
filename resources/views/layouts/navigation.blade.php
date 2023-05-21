@@ -40,6 +40,24 @@
                             {{ __('Tambah Dokter  ') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('tambahKlinik')" :active="request()->routeIs('tambahKlinik')">
+                            {{ __('Tambah Klinik  ') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('polaTarif')" :active="request()->routeIs('polaTarif')">
+                            {{ __('Pola Tarif  ') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
+                @if (Auth::user()->role == '2')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('tarifDokter')" :active="request()->routeIs('tarifDokter')">
+                        {{ __('Pola tarif  ') }}
+                    </x-nav-link>
+                </div>
                 @endif
 
             </div>

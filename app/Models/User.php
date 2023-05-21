@@ -24,7 +24,8 @@ class User extends Authenticatable
         'role',
         'alamat',
         'lahir',
-        'hp'
+        'hp',
+        'klinik_tujuan'
     ];
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Klinik;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +16,10 @@ use Illuminate\Validation\Rules;
 
 class AddDokterController extends Controller
 {
+    public function create(): View
+    {
+        return view('admin.tambahDokter');
+    }
 
     /**
      * Handle an incoming registration request.
@@ -37,11 +42,18 @@ class AddDokterController extends Controller
             'alamat' => '-',
             'lahir' => '1111-11-11',
             'hp' => '-',
+            'klinik_tujuan' => $request->klinik_tujuan,
         ]);
         
 
         event(new Registered($user));
 
         return redirect(RouteServiceProvider::ADMIN);
+    }
+
+    public function show()
+    {
+        $klinik = Klinik::all();
+        return view('admin.fitur.addDokter', ['kliniks' => $klinik]);
     }
 }

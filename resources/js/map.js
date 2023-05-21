@@ -11,6 +11,7 @@ function initMap() {
     // panel: document.getElementById("panel"),
   });
 
+  //coba hapus nanti
   directionsRenderer.addListener("directions_changed", () => {
     const directions = directionsRenderer.getDirections();
 

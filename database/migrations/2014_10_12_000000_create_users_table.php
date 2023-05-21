@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->date('lahir')->nullable();
             $table->string('hp')->nullable();
+            $table->string('klinik_tujuan')->nullable();
             $table->integer('role')->default('0');
             $table->timestamps();
         });

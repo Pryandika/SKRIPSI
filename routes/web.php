@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\Auth\PolaTarifController;
+use App\Http\Controllers\Auth\TarifDokterController;
+use App\Http\Controllers\Auth\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,21 +30,24 @@ Route::get('/detail', function () {
     return view('detailAntrian');
 })->middleware(['auth', 'verified']);
 
-Route::get('/admin', function () {
-    return view('admin.adminDash');
-})->middleware('auth')->name('adminDash');
+Route::get('/polatarif', function () {
+    return view('admin.polaTarif');
+})->middleware('auth')->name('polaTarif');
 
-Route::get('/tambahdokter', function () {
-    return view('admin.tambahDokter');
-})->middleware('auth')->name('tambahDokter');
 
-//Auth user
+
+Route::get('/tambahklinik', function () {
+    return view('admin.tambahKlinik');
+})->middleware('auth')->name('tambahKlinik');
+
+Route::get('tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifDokter');
+
+//Auth user login
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 
 require __DIR__.'/auth.php';

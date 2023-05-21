@@ -10,7 +10,13 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route; 
-use App\Http\Controllers\Auth\AddDokterController;
+use App\Http\Controllers\Auth\AddDokterController; 
+use App\Http\Controllers\Auth\AddKlinikController;
+use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\Auth\AdminChartController;
+use App\Http\Controllers\Auth\PolaTarifController;
+use App\Http\Controllers\Auth\DashboardController;
+use App\Http\Controllers\Auth\LoketController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -62,4 +68,19 @@ Route::middleware('auth')->group(function () {
             ->name('addDokter');
 
     Route::post('addDokter', [AddDokterController::class, 'store']);
+
+    Route::get('addKlinik', [AddKlinikController::class, 'create'])
+    ->name('addKlinik');
+
+    Route::post('addKlinik', [AddKlinikController::class, 'store']);
+
+    Route::get('addTarif', [PolaTarifController::class, 'create'])
+    ->name('addTarif');
+
+    Route::post('addTarif', [PolaTarifController::class, 'store']);
+
+    Route::get('/admin', [AdminController::class, 'showAdmin'])->name('adminDash');
+
+    Route::get('dashboard', [DashboardController::class, 'showKlinik'])->name('dashboard');
+    Route::get('loket', [LoketController::class, 'showKlinik'])->name('loket');
 });

@@ -22,14 +22,14 @@
                 {{ __('Admin') }}
             </h2>
         </x-slot>
-
+        
         <div class="container">
             <div class="row">
                 <div class="col-sm">
                     <div class="py-12 px-12">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>5</h3>
                                 <p>Jumlah Pasien</p>
                             </div>
                             <div class="icon">
@@ -45,7 +45,7 @@
                     <div class="py-12 px-12">
                         <div class="small-box bg-gradient-success">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3>2</h3>
                                 <p>Jumlah Klinik</p>
                             </div>
                             <div class="icon">
@@ -61,7 +61,7 @@
                     <div class="py-12 px-12">
                         <div class="small-box bg-gradient-primary">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3>4</h3>
                                 <p>Jumlah Dokter</p>
                             </div>
                             <div class="icon">
@@ -75,6 +75,8 @@
                 </div>
             </div>
         </div>
+
+                @include('admin.fitur.tabelAdmin')
 
 
 
