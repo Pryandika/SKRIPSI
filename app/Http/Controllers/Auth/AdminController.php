@@ -27,8 +27,12 @@ class AdminController extends Controller
         $chart1 = new LaravelChart($chart_options);
         
         $user = User::all();
+        $totuser = User::where('role', 0)->count();
+        $totdokter = User::where('role',2)->count();
         $klinik = Klinik::all();
-        return view('admin.adminDash', ['users' => $user, 'kliniks' => $klinik], compact('chart1'));
+        $totklinik = Klinik::all()->count();
+        return view('admin.adminDash', ['users' => $user, 'kliniks' => $klinik ], 
+        compact('chart1', 'totuser', 'totdokter', 'totklinik'));
     }
 
     public function showTambahDokter()

@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('tambahklinik', [AddKlinikController::class, 'create'])
     ->name('tambahklinik');
 
-    Route::post('tambahKlinik', [AddKlinikController::class, 'store']);
+    Route::post('tambahklinik', [AddKlinikController::class, 'store']);
 
     Route::get('polatarif', [PolaTarifController::class, 'create'])
     ->name('polatarif');

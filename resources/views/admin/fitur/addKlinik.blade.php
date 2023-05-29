@@ -23,12 +23,6 @@
             <x-input-error :messages="$errors->get('jam_buka')" class="mt-2" />
         </div>
 
-        <div>
-            <x-input-label for="status_klinik" :value="__('Status Klinik')" />
-            <x-text-input id="status_klinik" class="block mt-1 w-full" type="text" name="status_klinik" :value="old('status_klinik')" required autofocus autocomplete="1" />
-            <x-input-error :messages="$errors->get('status_klinik')" class="mt-2" />
-        </div>
-
         <div class="flex items-center justify-end mt-4">
 
             <x-primary-button class="ml-4">

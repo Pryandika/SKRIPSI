@@ -29,7 +29,7 @@
                     <div class="py-12 px-12">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>5</h3>
+                                <h3>{{ $totuser }}</h3>
                                 <p>Jumlah Pasien</p>
                             </div>
                             <div class="icon">
@@ -45,7 +45,7 @@
                     <div class="py-12 px-12">
                         <div class="small-box bg-gradient-success">
                             <div class="inner">
-                                <h3>2</h3>
+                                <h3>{{ $totklinik }}</h3>
                                 <p>Jumlah Klinik</p>
                             </div>
                             <div class="icon">
@@ -61,7 +61,7 @@
                     <div class="py-12 px-12">
                         <div class="small-box bg-gradient-primary">
                             <div class="inner">
-                                <h3>4</h3>
+                                <h3>{{ $totdokter }}</h3>
                                 <p>Jumlah Dokter</p>
                             </div>
                             <div class="icon">
