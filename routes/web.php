@@ -4,7 +4,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\PolaTarifController;
-use App\Http\Controllers\Auth\TarifDokterController;
 use App\Http\Controllers\Auth\DashboardController;
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +17,7 @@ use App\Http\Controllers\Auth\DashboardController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 //redir users
@@ -30,17 +29,6 @@ Route::get('/detail', function () {
     return view('detailAntrian');
 })->middleware(['auth', 'verified']);
 
-Route::get('/polatarif', function () {
-    return view('admin.polaTarif');
-})->middleware('auth')->name('polaTarif');
-
-
-
-Route::get('/tambahklinik', function () {
-    return view('admin.tambahKlinik');
-})->middleware('auth')->name('tambahKlinik');
-
-Route::get('tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifDokter');
 
 //Auth user login
 Route::middleware('auth')->group(function () {

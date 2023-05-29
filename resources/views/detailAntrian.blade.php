@@ -33,8 +33,8 @@
 
 <script
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1XnPw1i76KYYec7QX9UCWDDCo1_uCO2Y&callback=initMap&v=weekly"
-defer
-></script>
+defer>
+</script>
     
 </body>
 

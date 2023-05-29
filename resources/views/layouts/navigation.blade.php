@@ -36,17 +36,17 @@
                 
                 @if (Auth::user()->role == '1')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('tambahDokter')" :active="request()->routeIs('tambahDokter')">
+                        <x-nav-link :href="route('tambahdokter')" :active="request()->routeIs('tambahdokter')">
                             {{ __('Tambah Dokter  ') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('tambahKlinik')" :active="request()->routeIs('tambahKlinik')">
+                        <x-nav-link :href="route('tambahklinik')" :active="request()->routeIs('tambahklinik')">
                             {{ __('Tambah Klinik  ') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('polaTarif')" :active="request()->routeIs('polaTarif')">
+                        <x-nav-link :href="route('polatarif')" :active="request()->routeIs('polatarif')">
                             {{ __('Pola Tarif  ') }}
                         </x-nav-link>
                     </div>

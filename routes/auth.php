@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\AdminChartController;
 use App\Http\Controllers\Auth\PolaTarifController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Auth\LoketController;
+use App\Http\Controllers\Auth\TarifDokterController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -64,22 +65,24 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 
-    Route::get('addDokter', [AddDokterController::class, 'create'])
-            ->name('addDokter');
+    Route::get('tambahdokter', [AddDokterController::class, 'create'])
+            ->name('tambahdokter');
 
-    Route::post('addDokter', [AddDokterController::class, 'store']);
+    Route::post('tambahdokter', [AddDokterController::class, 'store']);
 
-    Route::get('addKlinik', [AddKlinikController::class, 'create'])
-    ->name('addKlinik');
+    Route::get('tambahklinik', [AddKlinikController::class, 'create'])
+    ->name('tambahklinik');
 
-    Route::post('addKlinik', [AddKlinikController::class, 'store']);
+    Route::post('tambahKlinik', [AddKlinikController::class, 'store']);
 
-    Route::get('addTarif', [PolaTarifController::class, 'create'])
-    ->name('addTarif');
+    Route::get('polatarif', [PolaTarifController::class, 'create'])
+    ->name('polatarif');
 
-    Route::post('addTarif', [PolaTarifController::class, 'store']);
+    Route::post('polatarif', [PolaTarifController::class, 'store']);
 
     Route::get('/admin', [AdminController::class, 'showAdmin'])->name('adminDash');
+
+    Route::get('tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifDokter');
 
     Route::get('dashboard', [DashboardController::class, 'showKlinik'])->name('dashboard');
     Route::get('loket', [LoketController::class, 'showKlinik'])->name('loket');

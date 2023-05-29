@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Klinik;
+use Illuminate\View\View;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 use App\Models\Polatarif;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
@@ -14,7 +20,8 @@ class PolaTarifController extends Controller
 
     public function create(): View
     {
-        return view('admin.polaTarif');
+        $klinik = Klinik::all();
+        return view('admin.polaTarif', ['kliniks' => $klinik]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -26,7 +33,7 @@ class PolaTarifController extends Controller
         ]);
 
         $polatarif = Polatarif::create([
-            'nama_klinik' => $request->klinik_tujuan,
+            'nama_klinik' => $request->nama_klinik,
             'nama_pola' => $request->nama_pola,
             'biaya' => $request->biaya,           
         ]);
@@ -34,11 +41,5 @@ class PolaTarifController extends Controller
         event(new Registered($polatarif));
 
         return redirect(RouteServiceProvider::ADMIN);
-    }
-
-    public function show()
-    {
-        $klinik = Klinik::all();
-        return view('admin.polaTarif', ['kliniks' => $klinik]);
     }
 }

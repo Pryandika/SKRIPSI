@@ -1,5 +1,5 @@
  <div>   
-    <form method="POST" action="{{ route('addKlinik') }}">
+    <form method="POST" action="{{ route('tambahklinik') }}">
         @csrf
 
         <!-- Nama Klinik -->

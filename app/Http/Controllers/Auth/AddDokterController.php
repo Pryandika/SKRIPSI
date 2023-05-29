@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Klinik;
+use Illuminate\View\View;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +19,8 @@ class AddDokterController extends Controller
 {
     public function create(): View
     {
-        return view('admin.tambahDokter');
+        $klinik = Klinik::all();
+        return view('admin.tambahDokter', ['kliniks' => $klinik]);
     }
 
     /**
@@ -53,7 +55,6 @@ class AddDokterController extends Controller
 
     public function show()
     {
-        $klinik = Klinik::all();
-        return view('admin.fitur.addDokter', ['kliniks' => $klinik]);
+
     }
 }

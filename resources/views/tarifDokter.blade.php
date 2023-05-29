@@ -19,37 +19,36 @@
         {{-- Header --}}
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Dokter') }}
+                {{ __('Dokter') }} / {{$currentUser}}
             </h2>
         </x-slot>
         
         <div class="container">
             <div class="card mt-5">
                 <div class="card-header">
-                  <h3 class="card-title">Data Pasien</h3>
+                  <h3 class="card-title">Data Pasien </h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>Aksi</th>
+                        <th class="text-center">Nama</th>
+                        <th class="text-center">Alamat</th>
+                        <th class="text-center">Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <div hidden>{{$i=1}}</div>
                       @foreach ($users->where('role', '0' ) as $user)
                       <tr>
-                        <td>{{$i++}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->alamat}}</td>
                         <td>
+                          <div class="text-center">
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
                                 Tambah Biaya
                               </button>
+                            </div>
                               <div class="modal fade" id="modal-default">
                                 <div class="modal-dialog">
                                   <div class="modal-content">

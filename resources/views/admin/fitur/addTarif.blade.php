@@ -1,12 +1,16 @@
 <div>   
-    <form method="POST" action="{{ route('addTarif') }}">
+    <form method="POST" action="{{ route('polatarif') }}">
         @csrf
 
         <!-- Nama Klinik -->
-        <div>
-            <x-input-label class="mt-5" for="klinik_tujuan" :value="__('Nama Klinik')" />
-            <x-text-input id="klinik_tujuan" class="block mt-1 w-full" type="text" name="klinik_tujuan" :value="old('klinik_tujuan')" required autofocus autocomplete="nama_pola" />
-            <x-input-error :messages="$errors->get('klinik_tujuan')" class="mt-2" />
+        <div class="mt-4">
+            <x-input-label for="klinik" :value="__('Klinik')" />
+            <x-form-select name="nama_klinik" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" >
+                @foreach ($kliniks as $klinik)
+                    <option name="nama_klinik" :value="old('{{$klinik->nama_klinik}}')">{{$klinik->nama_klinik}}</option>
+                @endforeach
+            </x-form-select>
+            <x-input-error :messages="$errors->get('nama_klinik')" class="mt-2" />
         </div>
 
         <!-- Nama Tindakan -->
