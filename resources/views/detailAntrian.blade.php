@@ -25,7 +25,41 @@
         <div id="container">
             <div id="map"></div>
             <div id="sidebar">
-              <p>Waktu : <span id="waktu"></span></p>
+                <div class="container mt-5">
+                    <div class="row">
+                      <div class="col-sm">
+                        <div class="text-center">
+                            <div class="font-weight-bold">JALUR</div>
+                            <br>UMUM
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="text-center">
+                            <div class="font-weight-bold">HARI</div>
+                            <br>SELASA
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="text-center">
+                            <div class="font-weight-bold">ANTRIAN</div>
+                            <br>NOMOR 1
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="text-center">
+                            <div class="font-weight-bold">WAKTU</div>
+                            <br><span id="waktu"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="text-center">
+                            <div class="font-weight-bold">BIAYA</div>
+                            <br>Rp. 100.000
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
               <div id="panel"></div>
             </div>
           </div>
@@ -33,8 +67,8 @@
 
 <script
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1XnPw1i76KYYec7QX9UCWDDCo1_uCO2Y&callback=initMap&v=weekly"
-defer>
-</script>
+defer
+></script>
     
 </body>
 
