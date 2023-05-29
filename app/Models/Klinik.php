@@ -11,9 +11,10 @@ class Klinik extends Model
 
     protected $fillable = [
         'nama_klinik',
+        'quota',
         'jam_buka',
         'jam_tutup',
-        'status_klinik'       
+        'is_active'       
     ];
 
     public $timestamps = false;

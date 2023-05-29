@@ -74,11 +74,13 @@
                                       <tr>
                                         <td>{{$polatarif->nama_pola}}</td>
                                         <td>{{$polatarif->biaya}}</td>
-                                        <td><input type="checkbox" value="{{$polatarif->nama_pola}}" id="flexCheckDefault"></td>
+                                        <td><input class="cbox" type="checkbox" data-price="{{$polatarif->biaya}}" id="{{$polatarif->id_pola}}"></td>
                                       </tr>
                                       @endforeach
+                            
                                     </tbody>
                                   </table>
+                                  <input type="text" id="msg" />
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -109,6 +111,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
@@ -122,3 +125,20 @@
 </body>
 
 </html>
+
+<script>
+  $(function() {
+  $(".cbox").on("change", function() {
+    const vals = $(".cbox:checked")
+      .map(function() {
+        return +this.dataset.price
+      })
+      .get();
+    // test we have an array of values
+    const sum = vals.length>0 ? vals.reduce((a, b) => a + b) : 0; // if no, zero sum
+    $('#msg').val(sum)
+  })
+})
+
+
+</script>

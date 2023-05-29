@@ -9,6 +9,13 @@
             <x-input-error :messages="$errors->get('nama_klinik')" class="mt-2" />
         </div>
 
+        <!-- Quota -->
+        <div>
+            <x-input-label class="mt-1" for="quota" :value="__('Quota')" />
+            <x-text-input id="quota" class="block mt-1 w-full" type="number" min="10" max="50" name="quota" :value="old('quota')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('nama_klinik')" class="mt-2" />
+        </div>        
+
         <!-- Jam Buka -->
         <div class="mt-4">
             <x-input-label for="jam_buka" :value="__('Waktu Buka')" />

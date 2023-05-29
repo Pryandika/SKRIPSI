@@ -82,8 +82,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin', [AdminController::class, 'showAdmin'])->name('adminDash');
 
-    Route::get('tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifDokter');
+    Route::get('tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifdokter');
 
-    Route::get('dashboard', [DashboardController::class, 'showKlinik'])->name('dashboard');
+
+
     Route::get('loket', [LoketController::class, 'showKlinik'])->name('loket');
 });

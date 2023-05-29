@@ -25,7 +25,8 @@ class User extends Authenticatable
         'alamat',
         'lahir',
         'hp',
-        'klinik_tujuan'
+        'klinik_tujuan',
+        'tanggal_reservasi'
     ];
 
     /**

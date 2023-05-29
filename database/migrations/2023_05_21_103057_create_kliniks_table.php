@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('kliniks', function (Blueprint $table) {
             $table->increments('id_klinik'); 
             $table->string('nama_klinik', 255);
+            $table->integer('quota');
             $table->time('jam_buka');
             $table->time('jam_tutup');
-            $table->integer('status_klinik');
+            $table->boolean('is_active');
         });
     }
 

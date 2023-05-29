@@ -34,9 +34,10 @@ class AddKlinikController extends Controller
 
         $klinik = Klinik::create([
             'nama_klinik' => $request->nama_klinik,
+            'quota' => $request->quota,
             'jam_buka' => $request->jam_buka,
             'jam_tutup' => $request->jam_tutup,
-            'status_klinik' => '1',            
+            'is_active' => '1',            
         ]);
         
 

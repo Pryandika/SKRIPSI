@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 
     <title>Dashboard User</title>
+    @livewireStyles
 </head>
 
 <body>
@@ -36,10 +37,13 @@
                                 <div class="row">
                                     @foreach ($kliniks as $klinik)
                                   <div class="col-sm-4 mt-3">
+                                    <div hidden> 
+                                      <x-text-input id="klinik_tujuan" class="block mt-1 w-full" type="text" name="klinik_tujuan" :value="old('klinik_tujuan', $klinik->nama_klinik)" required autofocus autocomplete="klinik_tujuan" />
+                                    </div>
                                     <div class="position-relative p-3 bg-blue mt-1" style="height: 180px">
                                         {{$klinik->nama_klinik}} <br>
                                       <small>{{$klinik->jam_buka}} - {{$klinik->jam_tutup}}</small> <br> <br> <br> <br>
-                                      <button type="button" class="btn btn-primary"  onClick="klinik_value('{{ $klinik->nama_klinik }}')" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
                                         Pilih Hari</button>
                                     </div>
                                   </div>
@@ -48,15 +52,13 @@
                                <!-- Modal input start -->  
                                <form method="post" action="{{ route('dashboard.update') }}" class="mt-6 space-y-6">
                                 @csrf
-                                @method('patch')                          
+                                @method('patch')                           
                                   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                       <div class="modal-content px-4 py-4">
-                                        <input id="nama_klinik" name="klinik_tujuan" class="text-center font-semibold text-xl text-gray-800 leading-tight mb-2">
-
                                         @foreach($days as $day)
                                           <div class="position-relative p-3 bg-blue mt-1" style="height: 180px">
-                                            <input type="checkbox" name="tanggal_reservasi" value="{{$day['label']}}" id="tanggal_reservasi">
+                                            <input type="checkbox" value="{{$day['label']}}" id="flexCheckDefault">
                                               {{$day['day']}} <br>
                                             {{$day['label']}} <br> <br> <br> <br>
                                           </div>
@@ -88,25 +90,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+@livewireScripts
 </body>
 
 </html>
-
-<script>
-  var $checkboxes = $('input[type=checkbox]');
-
-$checkboxes.change(function () {
-    if (this.checked) {
-        if ($checkboxes.filter(':checked').length == 1) {
-            $checkboxes.not(':checked').prop('disabled', true);
-        }
-    } else {
-        $checkboxes.prop('disabled', false);
-    }
-});
-
-function klinik_value(data) {
-  document.getElementById("nama_klinik").innerHTML = data;
-  document.getElementById("nama_klinik").value = data;
-        }
-</script>

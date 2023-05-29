@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('polatarif', function (Blueprint $table) {
+        Schema::create('polatarifs', function (Blueprint $table) {
             $table->increments('id_pola'); 
             $table->string('nama_klinik', 255);
             $table->string('nama_pola', 255);

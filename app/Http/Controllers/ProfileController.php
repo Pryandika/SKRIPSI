@@ -58,12 +58,4 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    /**
-     * Create Route for User
-     */
-    public function route(Request $request): RedirectResponse
-    {
-
-        return "asd";
-    }
 }
