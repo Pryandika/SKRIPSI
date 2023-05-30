@@ -33,6 +33,7 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
+                        <th>id</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">Alamat</th>
                         <th class="text-center">Aksi</th>
@@ -41,15 +42,19 @@
                     <tbody>
                       @foreach ($users->where('role', '0' ) as $user)
                       <tr>
+                        <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->alamat}}</td>
                         <td>
                           <div class="text-center">
-                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                            <button type="button" value="{{$user->id}}" class="btn btn-default editbtn" >
                                 Tambah Biaya
                               </button>
                             </div>
-                              <div class="modal fade" id="modal-default">
+                            <form method="POST" action="{{ url('update-tarifdokter') }}" class="mt-6 space-y-6">
+                              @csrf
+                              @method('PUT')
+                              <div class="modal fade" id="editModal">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -59,6 +64,8 @@
                                       </button>
                                     </div>
                                     <div class="modal-body">
+                                <input type="hidden" name="id" id="id">
+                                  <input id="name" name="name" class="font-semibold text-xl text-gray-800 leading-tight mb-2">
                                   <!-- /.Body -->
                                   <table class="table table-bordered">
                                     <thead>
@@ -80,18 +87,18 @@
                             
                                     </tbody>
                                   </table>
-                                  <input type="text" id="msg" />
+                                  <input type="text" id="biaya" name="biaya"/>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-outline-success">Simpan</button>
+                                      <x-primary-button>{{ __('Simpan') }}</x-primary-button>
                                     </div>
+                                  </form>
                                   </div>
                                   <!-- /.modal-content -->
                                 </div>
                                 <!-- /.modal-dialog -->
                               </div>
-                          
                         </td>
                       </tr>
                       @endforeach
@@ -112,9 +119,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
@@ -136,9 +141,29 @@
       .get();
     // test we have an array of values
     const sum = vals.length>0 ? vals.reduce((a, b) => a + b) : 0; // if no, zero sum
-    $('#msg').val(sum)
+    $('#biaya').val(sum)
   })
 })
 
 
+    $(document).ready(function () {
+
+      $(document).on('click', '.editbtn', function(){
+        
+        var user_id = $(this).val();
+        //alert(user_id);
+        $('#editModal').modal('show');
+
+        $.ajax({
+          type: "GET",
+          url: "/edit-tarifdokter/"+user_id,
+          success: function (response){
+            console.log(response);
+            $('#id').val(response.user.id);
+            $('#name').val(response.user.name);
+            $('#biaya').val(response.user.biaya);
+          }
+        });
+      });
+    });
 </script>

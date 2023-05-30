@@ -12,12 +12,14 @@ use App\Models\Klinik;
 use App\Models\Polatarif;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\DB;
 
 class TarifDokterController extends Controller
 {
     public function showUser(Request $request)
     {
-        $currentUser = $request->user()->klinik_tujuan;
+        $currentUser = Auth::user()->klinik_tujuan;
         $user = User::select('*')
         ->where([
             ['role', '=', '0'],
@@ -31,7 +33,7 @@ class TarifDokterController extends Controller
         ->get();
 
         $klinik = Klinik::all();
-        return view('tarifDokter', ['users' => $user, 'kliniks' => $klinik, 'polatarifs' => $polatarif, 'currentUser' =>$currentUser]);
+        return view('tarifDokter', ['users' => $user, 'kliniks' => $klinik, 'polatarifs' => $polatarif ], compact("currentUser"));
     }
 
     public function showTambahDokter()
@@ -41,16 +43,25 @@ class TarifDokterController extends Controller
         return view('admin.tambahDokter', ['users' => $user, 'kliniks' => $klinik]);
     }
 
-        /**
+    /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $id = $request->input('id');
+        $user = User::find($id);
+        $user->biaya = $request->input('biaya');
+        $user->save();
 
-        $request->user()->save();
-
-        return Redirect::route('detail');
+        return Redirect::route('tarifdokter');
     }
 
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return response()->json([
+            'status'=>200,
+            'user'=>$user,
+        ]);
+    }
 }

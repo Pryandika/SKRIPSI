@@ -36,13 +36,13 @@
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">HARI</div>
-                            <br>SELASA
+                            <br>{{Auth::user()->tanggal_reservasi;}}
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">ANTRIAN</div>
-                            <br>NOMOR 1
+                            <br>Nomor {{Auth::user()->no_antrian+1;}}
                         </div>
                       </div>
                       <div class="col-sm">
@@ -54,7 +54,7 @@
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">BIAYA</div>
-                            <br>Rp. 100.000
+                            <br>Rp.{{Auth::user()->biaya;}}
                         </div>
                       </div>
                     </div>

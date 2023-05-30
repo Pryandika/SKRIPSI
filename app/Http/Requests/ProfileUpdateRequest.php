@@ -20,6 +20,8 @@ class ProfileUpdateRequest extends FormRequest
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             'klinik_tujuan' => ['string', 'max:255'],
             'tanggal_reservasi' => ['string', 'max:255'],
+            'biaya' => ['integer', 'max:255'],
+            'no_antrian' => ['integer', 'max:255']
         ];
     }
 }

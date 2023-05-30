@@ -9,12 +9,17 @@ use App\Models\User;
 use App\Models\Klinik;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function showKlinik()
     {
         $days = [
+            [
+                'day' => Carbon::now()->addDays(0)->format('d-m-Y'),
+                'label' => Carbon::now()->addDays(0)->format('l, d F Y')
+            ],
             [
                 'day' => Carbon::now()->addDays(1)->format('d-m-Y'),
                 'label' => Carbon::now()->addDays(1)->format('l, d F Y')
@@ -39,15 +44,13 @@ class DashboardController extends Controller
                 'day' => Carbon::now()->addDays(6)->format('d-m-Y'),
                 'label' => Carbon::now()->addDays(6)->format('l, d F Y')
             ],
-            [
-                'day' => Carbon::now()->addDays(7)->format('d-m-Y'),
-                'label' => Carbon::now()->addDays(7)->format('l, d F Y')
-            ],
+            
         ];
+        
 
         $user = User::all();
         $klinik = Klinik::all();
-        return view('dashboard', ['users' => $user, 'kliniks' => $klinik, 'days' => $days]);
+        return view('dashboard', ['users' => $user, 'kliniks' => $klinik, 'days' => $days], compact('user', 'klinik'));
     }
     
     /**
@@ -55,8 +58,9 @@ class DashboardController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        $user = Auth::user();
+        $user->no_antrian = $request->input('no_antrian');
         $request->user()->fill($request->validated());
-
         $request->user()->save();
 
         return Redirect::route('detail');

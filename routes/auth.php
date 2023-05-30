@@ -15,9 +15,10 @@ use App\Http\Controllers\Auth\AddKlinikController;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\AdminChartController;
 use App\Http\Controllers\Auth\PolaTarifController;
-use App\Http\Controllers\Auth\DashboardController;
+use App\Http\Controllers\Auth\DetailAntrianController;
 use App\Http\Controllers\Auth\LoketController;
 use App\Http\Controllers\Auth\TarifDokterController;
+use App\Http\Controllers\FileUpload;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -82,9 +83,20 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin', [AdminController::class, 'showAdmin'])->name('adminDash');
 
-    Route::get('tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifdokter');
+    Route::get('/tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifdokter');
+    Route::get('/edit-tarifdokter/{id}', [TarifDokterController::class, 'edit']);
 
-
+    Route::put('update-tarifdokter', [TarifDokterController::class, 'update']);
 
     Route::get('loket', [LoketController::class, 'showKlinik'])->name('loket');
+    Route::get('/edit-loket/{id}', [LoketController::class, 'edit']);
+    Route::put('update-loket', [LoketController::class, 'update']);
+
+    Route::put('update-tarifdokter', [TarifDokterController::class, 'update']);
+
+    Route::get('/detail', [DetailAntrianController::class, 'show'])->name('detail');
+
+    Route::get('/upload-file', [FileUpload::class, 'createForm']);
+    Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
+
 });

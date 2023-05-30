@@ -15,85 +15,118 @@
 </head>
 
 <body>
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    <x-app-layout>
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Dashboard') }}
+            </h2>
+        </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-12">
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
                             <div class="card card-primary">
-                              <!-- /.card-header  onclick="location.href='{url('detail') }'" -->
-                              <div class="card-body">
-                                <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-2">
-                                    {{ __('List Klinik') }}
-                                </h2>
-                                <div class="row">
-                                    @foreach ($kliniks as $klinik)
-                                  <div class="col-sm-4 mt-3">
-                                    <div class="position-relative p-3 bg-blue mt-1" style="height: 180px">
-                                        {{$klinik->nama_klinik}} <br>
-                                      <small>{{$klinik->jam_buka}} - {{$klinik->jam_tutup}}</small> <br> <br> <br> <br>
-                                      <button type="button" class="btn btn-primary"  onClick="klinik_value('{{ $klinik->nama_klinik }}')" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                        Pilih Hari</button>
-                                    </div>
-                                  </div>
-                                  @endforeach
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-2">
+                                        {{ __('List Klinik') }}
+                                    </h2>
+                                    <div class="row">
+                                        @foreach ($kliniks as $klinik)
+                                        <div class="col-sm-4">
+                                            <div class="position-relative p-3 bg-blue mt-1" style="height: 180px">
+                                                {{$klinik->nama_klinik}} <br>
+                                                <small>{{$klinik->jam_buka}} - {{$klinik->jam_tutup}}</small> <br> <br>
+                                                <br> <br>
+                                                <button type="button"
+                                                    onClick="klinik_value('{{ $klinik->nama_klinik }}', {{$klinik->id_klinik}})"
+                                                    class="btn btn-outline-light btn-sm" data-toggle="modal"
+                                                    data-target="#{{$klinik->id_klinik}}">
+                                                    Pilih Hari</button>
+                                            </div>
+                                            <form method="post" action="{{ route('dashboard.update') }}"
+                                                class="mt-6 space-y-6">
+                                                @csrf
+                                                @method('patch')
 
-                               <!-- Modal input start -->  
-                               <form method="post" action="{{ route('dashboard.update') }}" class="mt-6 space-y-6">
-                                @csrf
-                                @method('patch')                          
-                                  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                      <div class="modal-content px-4 py-4">
-                                        <input id="nama_klinik" name="klinik_tujuan" class="text-center font-semibold text-xl text-gray-800 leading-tight mb-2">
+                                                <div class="modal bd-example-modal-lg" id="{{$klinik->id_klinik}}">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <div class="row">
+                                                                    <input id="nama_klinik{{$klinik->id_klinik}}"
+                                                                        name="klinik_tujuan"
+                                                                        class="font-semibold text-xl text-gray-800 leading-tight mb-2">
 
-                                        @foreach($days as $day)
-                                          <div class="position-relative p-3 bg-blue mt-1" style="height: 180px">
-                                            <input type="checkbox" name="tanggal_reservasi" value="{{$day['label']}}" id="tanggal_reservasi">
-                                              {{$day['day']}} <br>
-                                            {{$day['label']}} <br> <br> <br> <br>
-                                          </div>
-                                        @endforeach
-                                        <x-primary-button>{{ __('Save') }}</x-primary-button>
-                                        </form>
-                                      </div>
+                                                                </div>
+
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                </button>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="modal-body">
+                                                                        <!-- /.Body -->
+
+                                                                        @foreach($days as $day)
+                                                                        <div class="position-relative p-3 bg-blue mt-1"
+                                                                            style="height: 180px">
+                                                                            <input type="checkbox"
+                                                                                name="tanggal_reservasi"
+                                                                                value="{{$day['label']}}"
+                                                                                id="tanggal_reservasi">
+                                                                            {{$day['day']}} <br>
+                                                                            {{$day['label']}} <br> <br> <br> <br>
+                                                                            Antrian:
+                                                                            <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="no_antriana" id="no_antriana"
+                                                                        value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', '0')->where('tanggal_reservasi', $day['label'])->count()}}">
+                                                                        <button type="submit" class="btn btn-secondary position-absolute mb-4" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', '0')->where('tanggal_reservasi', $day['label'])->count()}}"> DAFTAR </button>
+                                                                        </div>
+
+                                                                       
+                                                                        @endforeach
+                                                                        {{-- <div class="col"><p class="font-semibold text-xl text-gray-800 leading-tight mb-2"
+                                                                          value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', '0')->count()}}">
+                                                                          Kuota:{{$klinik->quota}}</p></div>    --}}
+                                                                          
+                                                                                                         
+                                        
+                                            </form>
+
+                                        </div>
                                     </div>
-                                  </div>
+    
                                 </div>
-                                
-                              </div>
-                              <!-- /.card-body -->
+
                             </div>
-                            <!-- /.card -->
-                          </div>
-                          <!-- /.col -->
+                            <!-- /.modal-content -->
                         </div>
-                        <!-- /.row -->
-                      <!-- /.container-fluid -->
-                    </section>
-                    <!-- /.content -->
+                        <!-- /.modal-dialog -->
+                    </div>
                 </div>
+                @endforeach
             </div>
         </div>
-    </div>
-</x-app-layout>
+    </x-app-layout>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
 </body>
-
-</html>
-
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 <script>
-  var $checkboxes = $('input[type=checkbox]');
+      var $checkboxes = $('input[type=checkbox]');
 
 $checkboxes.change(function () {
     if (this.checked) {
@@ -105,8 +138,13 @@ $checkboxes.change(function () {
     }
 });
 
-function klinik_value(data) {
-  document.getElementById("nama_klinik").innerHTML = data;
-  document.getElementById("nama_klinik").value = data;
-        }
+    function klinik_value(data, id) {
+        var x = data;
+
+        document.getElementById("nama_klinik" + id).innerHTML = x;
+        document.getElementById("nama_klinik" + id).value = x;
+
+
+    }
+
 </script>

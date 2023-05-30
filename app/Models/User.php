@@ -26,7 +26,12 @@ class User extends Authenticatable
         'lahir',
         'hp',
         'klinik_tujuan',
-        'tanggal_reservasi'
+        'tanggal_reservasi',
+        'biaya',
+        'no_antrian',
+        'FKTP',
+        'KTP',
+        'BPJS'
     ];
 
     /**
