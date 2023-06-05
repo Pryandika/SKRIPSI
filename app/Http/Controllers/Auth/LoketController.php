@@ -12,24 +12,27 @@ use Illuminate\View\View;
 
 class LoketController extends Controller
 {
-    public function showKlinik()
+    public function showKlinik(Request $request)
     {
         $today = Carbon::now()->format('l, d F Y');
-
+        $nama_klinik = $request->input('nama_klinik_hide');
         $user = User::all();
         $klinik = Klinik::all();
         $usercount = User::where('role', '0');
         
-        return view('loket', ['users' => $user, 'kliniks' => $klinik], compact('usercount','today'));
-        
+        return view('loket', ['users' => $user, 'kliniks' => $klinik], compact('usercount','today', 'nama_klinik'));
+        dd($nama_klinik);
     }
 
-    public function modalLoket(Request $request)
+    public function modalLoket($klinik)
     {
-        $nama_klinik = $request->input('nama_klinik');
+        $today = Carbon::now()->format('l, d F Y');
+        $nama_klinik = $klinik;
         $tujuan = User::where('loket_tujuan', $nama_klinik);
-        dd($tujuan);
-        return view('loket');
+        $user = User::all();
+
+        // dd($klinik);
+        return view('layouts.model-loket', ['users' => $user], compact('nama_klinik', 'tujuan', 'today'));
     }
 
     /**

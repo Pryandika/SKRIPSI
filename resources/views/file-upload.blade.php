@@ -17,6 +17,12 @@
     </style>
 </head>
 <body>
+    <x-app-layout>
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Dashboard') }}
+            </h2>
+        </x-slot>
     <div class="container mt-5">
         <form action="{{route('fileUpload')}}" method="post" enctype="multipart/form-data">
           <h3 class="text-center mb-5">Upload File Syarat BPJS</h3>
@@ -53,4 +59,5 @@
         </form>
     </div>
 </body>
+</x-app-layout>
 </html>
