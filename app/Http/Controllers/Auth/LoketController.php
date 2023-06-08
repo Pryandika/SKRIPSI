@@ -17,38 +17,40 @@ class LoketController extends Controller
         $today = Carbon::now()->format('l, d F Y');
         $nama_klinik = $request->input('nama_klinik_hide');
         $user = User::all();
+        $userl = User::all();
         $klinik = Klinik::all();
         $usercount = User::where('role', '0');
         
-        return view('loket', ['users' => $user, 'kliniks' => $klinik], compact('usercount','today', 'nama_klinik'));
+        return view('loket', ['users' => $user, 'kliniks' => $klinik], compact('usercount','today', 'nama_klinik', 'userl'));
         dd($nama_klinik);
     }
 
-    public function modalLoket($klinik)
+    public function modalLoket(Request $request)
     {
         $today = Carbon::now()->format('l, d F Y');
-        $nama_klinik = $klinik;
-        $tujuan = User::where('loket_tujuan', $nama_klinik);
+        $nama_klinik = $request->input('nama_klinik_hide');
         $user = User::all();
-
-        // dd($klinik);
-        return view('layouts.model-loket', ['users' => $user], compact('nama_klinik', 'tujuan', 'today'));
+        $klinik = Klinik::all();
+        $usercount = User::where('role', '0');
+        
+        return view('layouts.model-loket', ['users' => $user, 'kliniks' => $klinik], compact('usercount','today', 'nama_klinik'));
+        dd($nama_klinik);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id, $klinik)
     {
-        $id = $request->input('id');
-        $user = User::find($id);
-        $user->klinik_tujuan = NULL;
-        $user->tanggal_reservasi = NULL;
-        $user->biaya = NULL;
-        $user->no_antrian = NULL;
-        $user->save();
-
-        return Redirect::route('loket');
+        // $user_id = $request->input();
+        // $user = User::find($id);
+        // $user->klinik_tujuan = NULL;
+        // $user->tanggal_reservasi = NULL;
+        // $user->biaya = NULL;
+        // $user->no_antrian = NULL;
+        // $user->save();
+        return dd($id, $klinik);
+        // return Redirect::route('loket');
     }
     
     public function edit($id)

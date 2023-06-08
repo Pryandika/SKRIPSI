@@ -90,8 +90,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('loket', [LoketController::class, 'showKlinik'])->name('loket');
     Route::get('/edit-loket/{id}', [LoketController::class, 'edit']);
-    Route::post('modal-loket/{klinik}', [LoketController::class, 'modalLoket']);
-    Route::put('update-loket', [LoketController::class, 'update']);
+    Route::get('modal-loket/', [LoketController::class, 'modalLoket']);
+    Route::put('update-loket/{id}/{klinik}', [LoketController::class, 'update'])->name('updateloket');
 
     Route::put('update-tarifdokter', [TarifDokterController::class, 'update']);
 
