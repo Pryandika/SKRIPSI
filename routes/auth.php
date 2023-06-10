@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
 
 
 // Route User
-Route::middleware(['auth','user-role:0'])->group(function()
+Route::middleware(['auth','user-role:user'])->group(function()
 {
     Route::get('/dashboard', [DashboardController::class, 'showKlinik'])->name('dashboard');
     Route::patch('/dashboard', [DashboardController::class, 'update'])->name('dashboard.update');
@@ -81,7 +81,7 @@ Route::middleware(['auth','user-role:0'])->group(function()
 });
 
 // Route Admin
-Route::middleware(['auth','user-role:1'])->group(function()
+Route::middleware(['auth','user-role:admin'])->group(function()
 {
     Route::get('tambahdokter', [AddDokterController::class, 'create'])
             ->name('tambahdokter');
@@ -103,7 +103,7 @@ Route::middleware(['auth','user-role:1'])->group(function()
 
 
 // Route Dokter
-Route::middleware(['auth','user-role:2'])->group(function()
+Route::middleware(['auth','user-role:dokter'])->group(function()
 {
     Route::get('/tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifdokter');
     Route::get('/edit-tarifdokter/{id}', [TarifDokterController::class, 'edit']);
@@ -112,7 +112,7 @@ Route::middleware(['auth','user-role:2'])->group(function()
 });
 
 // Route Loket
-Route::middleware(['auth','user-role:2'])->group(function()
+Route::middleware(['auth','user-role:loket'])->group(function()
 {
     Route::get('loket', [LoketController::class, 'showKlinik'])->name('loket');
     Route::get('/edit-loket/{id}', [LoketController::class, 'edit']);

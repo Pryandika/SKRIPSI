@@ -40,7 +40,7 @@
                   </thead>
                   <tbody>
                     <div hidden>{{$i=1}}</div>
-                    @foreach ($users->where('role', '0') as $user)
+                    @foreach ($users->where('role', 'user') as $user)
                     <tr>
                       <td>{{$i++}}</td>
                       <td>{{$user->name}}</td>
@@ -77,7 +77,7 @@
                   </thead>
                   <tbody>
                     <div hidden>{{$j=1}}</div>
-                    @foreach ($users->where('role', '2') as $user)
+                    @foreach ($users->where('role', 'dokter') as $user)
                     <tr>
                       <td>{{$j++}}</td>
                       <td>{{$user->name}}</td>

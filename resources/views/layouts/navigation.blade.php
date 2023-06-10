@@ -31,23 +31,23 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @if (Auth::user()->role == '0')
+                    @if (Auth::user()->role == 'user')
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @elseif (Auth::user()->role == '1')
+                    @elseif (Auth::user()->role == 'admin')
                 
                     <x-nav-link :href="route('adminDash')" :active="request()->routeIs('adminDash')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     
-                    @elseif (Auth::user()->role == '2')
+                    @elseif (Auth::user()->role == 'dokter')
                 
                     <x-nav-link :href="route('tarifdokter')" :active="request()->routeIs('adminDash')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    @elseif (Auth::user()->role == '3')
+                    @elseif (Auth::user()->role == 'loket')
                 
                     <x-nav-link :href="route('loket')" :active="request()->routeIs('adminDash')">
                         {{ __('Dashboard') }}
@@ -55,7 +55,7 @@
                     @endif
                 </div>
 
-                @if (Auth::user()->role == '0' AND Auth::user()->tanggal_reservasi != NULL)
+                @if (Auth::user()->role == 'user' AND Auth::user()->tanggal_reservasi != NULL)
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('detail')" :active="request()->routeIs('detail')">
                         {{ __('Detail Antrian  ') }}
@@ -63,7 +63,7 @@
                 </div>
                 @endif
                 
-                @if (Auth::user()->role == '1')
+                @if (Auth::user()->role == 'admin')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('tambahdokter')" :active="request()->routeIs('tambahdokter')">
                             {{ __('Tambah Dokter  ') }}
@@ -81,7 +81,7 @@
                     </div>
                 @endif
 
-                @if (Auth::user()->role == '2')
+                @if (Auth::user()->role == 'dokter')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('tarifdokter')" :active="request()->routeIs('tarifdokter')">
                         {{ __('Pola tarif  ') }}
