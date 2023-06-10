@@ -61,7 +61,7 @@
                                                   <th>Aksi</th>
                                                 </tr>
                                               </thead>    
-                                                  @foreach ($users->where('role', '0')->where('klinik_tujuan', $klinik->nama_klinik) as $user) 
+                                                  @foreach ($users->where('role', 'user')->where('klinik_tujuan', $klinik->nama_klinik) as $user) 
                                                   <form method="POST" action="{{ route('updateloket', [$user->id, $klinik->nama_klinik]) }}" class="mt-6 space-y-6"> 
                                                     @csrf 
                                                     @method('PUT')

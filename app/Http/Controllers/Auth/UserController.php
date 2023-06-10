@@ -10,8 +10,9 @@ use App\Models\Klinik;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
-class DashboardController extends Controller
+class UserController extends Controller
 {
     public function showKlinik()
     {
@@ -44,13 +45,28 @@ class DashboardController extends Controller
                 'day' => Carbon::now()->addDays(6)->format('d-m-Y'),
                 'label' => Carbon::now()->addDays(6)->format('l, d F Y')
             ],
-            
+
         ];
         
 
         $user = User::all();
         $klinik = Klinik::all();
-        return view('dashboard', ['users' => $user, 'kliniks' => $klinik, 'days' => $days], compact('user', 'klinik'));
+        $auser = Auth::user();
+
+        if ($auser->tanggal_reservasi = 'NULL') {
+            return redirect('/jalur');
+        }
+        else{
+            return view('dashboard', ['users' => $user, 'kliniks' => $klinik, 'days' => $days], compact('user', 'klinik'));
+        }
+        
+    }
+
+    public function show(): View
+    {
+        $klinik = Klinik::all();
+        $user = User::all();
+        return view('detailAntrian', compact('klinik', 'user'));
     }
     
     /**

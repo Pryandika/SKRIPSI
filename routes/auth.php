@@ -19,7 +19,8 @@ use App\Http\Controllers\Auth\DetailAntrianController;
 use App\Http\Controllers\Auth\LoketController;
 use App\Http\Controllers\Auth\TarifDokterController;
 use App\Http\Controllers\FileUpload;
-use App\Http\Controllers\Auth\DashboardController;
+use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\Auth\JalurController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -66,8 +67,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
-    Route::get('/upload-file', [FileUpload::class, 'createForm']);
-    Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
+
 
 });
 
@@ -75,28 +75,33 @@ Route::middleware('auth')->group(function () {
 // Route User
 Route::middleware(['auth','user-role:user'])->group(function()
 {
-    Route::get('/dashboard', [DashboardController::class, 'showKlinik'])->name('dashboard');
-    Route::patch('/dashboard', [DashboardController::class, 'update'])->name('dashboard.update');
-    Route::get('/detail', [DetailAntrianController::class, 'show'])->name('detail');
+    Route::get('/dashboard', [UserController::class, 'showKlinik'])->name('dashboard');
+    Route::patch('/dashboard', [UserController::class, 'update'])->name('dashboard.update');
+    Route::get('/detail', [UserController::class, 'show'])->name('detail');
+
+    Route::get('/jalur', [JalurController::class, 'jalur'])->name('jalur');
+
+    Route::get('/upload-file', [FileUpload::class, 'createForm']);
+    Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 });
 
 // Route Admin
 Route::middleware(['auth','user-role:admin'])->group(function()
 {
-    Route::get('tambahdokter', [AddDokterController::class, 'create'])
+    Route::get('tambahdokter', [AddDokterController::class, 'createDokter'])
             ->name('tambahdokter');
 
-    Route::post('tambahdokter', [AddDokterController::class, 'store']);
+    Route::post('tambahdokter', [AddDokterController::class, 'addDokter']);
 
-    Route::get('tambahklinik', [AddKlinikController::class, 'create'])
+    Route::get('tambahklinik', [AddKlinikController::class, 'createKlinik'])
     ->name('tambahklinik');
 
-    Route::post('tambahklinik', [AddKlinikController::class, 'store']);
+    Route::post('tambahklinik', [AddKlinikController::class, 'addKlinik']);
 
-    Route::get('polatarif', [PolaTarifController::class, 'create'])
+    Route::get('polatarif', [PolaTarifController::class, 'createTarif'])
     ->name('polatarif');
 
-    Route::post('polatarif', [PolaTarifController::class, 'store']);
+    Route::post('polatarif', [PolaTarifController::class, 'addTarif']);
 
     Route::get('/admin', [AdminController::class, 'showAdmin'])->name('adminDash');
 });

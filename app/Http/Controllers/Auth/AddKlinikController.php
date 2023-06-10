@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class AddKlinikController extends Controller
 {
-    public function create(): View
+    public function createKlinik(): View
     {
         $klinik = Klinik::all();
         return view('admin.tambahKlinik', ['kliniks' => $klinik]);
@@ -23,7 +23,7 @@ class AddKlinikController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function addKlinik(Request $request): RedirectResponse
     {
         // $request->validate([
         //     'nama_klinik' => ['required', 'string', 'max:255'],

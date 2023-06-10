@@ -18,13 +18,13 @@ use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 class PolaTarifController extends Controller
 {
 
-    public function create(): View
+    public function createTarif(): View
     {
         $klinik = Klinik::all();
         return view('admin.polaTarif', ['kliniks' => $klinik]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function addTarif(Request $request): RedirectResponse
     {
         $request->validate([
             'nama_klinik' => ['required', 'string', 'max:255'],

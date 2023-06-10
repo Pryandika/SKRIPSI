@@ -17,8 +17,6 @@ class FileUpload extends Controller
         if($req->file()) {
             $fileName = time().'_'.$req->file->getClientOriginalName();
             $filePath = $req->file('file')->storeAs('uploads', $fileName, 'public');
-            $fileModel->FKTP = time().'_'.$req->file->getClientOriginalName();
-            $fileModel->file_path_FKTP = '/storage/' . $filePath;
             $fileModel->KTP = time().'_'.$req->file->getClientOriginalName();
             $fileModel->file_path_KTP = '/storage/' . $filePath;
             $fileModel->BPJS = time().'_'.$req->file->getClientOriginalName();

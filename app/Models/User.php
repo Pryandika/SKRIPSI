@@ -30,9 +30,9 @@ class User extends Authenticatable
         'tanggal_reservasi',
         'biaya',
         'no_antrian',
-        'FKTP',
-        'KTP',
-        'BPJS'
+        'jalur',
+        'ktp',
+        'bpjs'
     ];
 
     /**
@@ -61,7 +61,7 @@ class User extends Authenticatable
     protected function role(): Attribute
     {
         return new Attribute(
-            get: fn ($value) =>  ["user", "admin", "dokter", "loket"][$value],
+            get: fn ($value) =>  ["user", "admin", "dokter"][$value],
         );
     }
 

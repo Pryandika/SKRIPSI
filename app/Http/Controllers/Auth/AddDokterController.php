@@ -17,7 +17,7 @@ use Illuminate\Validation\Rules;
 
 class AddDokterController extends Controller
 {
-    public function create(): View
+    public function createDokter(): View
     {
         $klinik = Klinik::all();
         return view('admin.tambahDokter', ['kliniks' => $klinik]);
@@ -28,7 +28,7 @@ class AddDokterController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function storeDokter(Request $request): RedirectResponse
+    public function addDokter(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],

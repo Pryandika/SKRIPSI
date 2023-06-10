@@ -40,7 +40,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($users->where('role', '0' ) as $user)
+                      @foreach ($users as $user)
                       <tr>
                         <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
