@@ -19,6 +19,7 @@ use App\Http\Controllers\Auth\DetailAntrianController;
 use App\Http\Controllers\Auth\LoketController;
 use App\Http\Controllers\Auth\TarifDokterController;
 use App\Http\Controllers\FileUpload;
+use App\Http\Controllers\Auth\DashboardController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -65,7 +66,23 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+    Route::get('/upload-file', [FileUpload::class, 'createForm']);
+    Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 
+});
+
+
+// Route User
+Route::middleware(['auth','user-role:0'])->group(function()
+{
+    Route::get('/dashboard', [DashboardController::class, 'showKlinik'])->name('dashboard');
+    Route::patch('/dashboard', [DashboardController::class, 'update'])->name('dashboard.update');
+    Route::get('/detail', [DetailAntrianController::class, 'show'])->name('detail');
+});
+
+// Route Admin
+Route::middleware(['auth','user-role:1'])->group(function()
+{
     Route::get('tambahdokter', [AddDokterController::class, 'create'])
             ->name('tambahdokter');
 
@@ -82,22 +99,26 @@ Route::middleware('auth')->group(function () {
     Route::post('polatarif', [PolaTarifController::class, 'store']);
 
     Route::get('/admin', [AdminController::class, 'showAdmin'])->name('adminDash');
+});
 
+
+// Route Dokter
+Route::middleware(['auth','user-role:2'])->group(function()
+{
     Route::get('/tarifdokter', [TarifDokterController::class, 'showUser'])->name('tarifdokter');
     Route::get('/edit-tarifdokter/{id}', [TarifDokterController::class, 'edit']);
 
     Route::put('update-tarifdokter', [TarifDokterController::class, 'update']);
+});
 
+// Route Loket
+Route::middleware(['auth','user-role:2'])->group(function()
+{
     Route::get('loket', [LoketController::class, 'showKlinik'])->name('loket');
     Route::get('/edit-loket/{id}', [LoketController::class, 'edit']);
     Route::get('modal-loket/', [LoketController::class, 'modalLoket']);
     Route::put('update-loket/{id}/{klinik}', [LoketController::class, 'update'])->name('updateloket');
 
     Route::put('update-tarifdokter', [TarifDokterController::class, 'update']);
-
-    Route::get('/detail', [DetailAntrianController::class, 'show'])->name('detail');
-
-    Route::get('/upload-file', [FileUpload::class, 'createForm']);
-    Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 
 });
