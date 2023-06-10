@@ -35,8 +35,8 @@
                           {{$klinik->nama_klinik}}
                           <br>
                           <small>{{$klinik->jam_buka}} - {{$klinik->jam_tutup}}</small>
-
-                          <button type="text" data-toggle="modal" data-target="#modal-{{$klinik->nama_klinik}}"  class="btn btn-default"> Lihat Detail </button>
+                          <br>
+                          <button type="text" data-toggle="modal" data-target="#modal-{{$klinik->nama_klinik}}"  class="btn btn-default mt-5 "> Lihat Detail </button>
                         </div> 
 
                         <!-- Modal -->
@@ -86,13 +86,11 @@
                                         {{$userl->where('klinik_tujuan', $klinik->nama_klinik)->where('role', '0')->count()}} / {{$klinik->quota}}
                                         </p>
                                     </div>
-                                      </div>
+                                  </div>
                                 </div>
                             </div>
-                        </div>
-
+                          </div>
                         <!-- /.modal -->
-
                         </div>
                       @endforeach
                      </div>
@@ -164,5 +162,5 @@
       // });
 
 
-    });
+    // });
   </script>
