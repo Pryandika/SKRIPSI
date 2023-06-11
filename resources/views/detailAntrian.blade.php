@@ -17,7 +17,7 @@
 
     <script type="text/javascript" src={{ asset('/js/map.js') }}></script>
 
-    <title>Admin</title>
+    <title>RSUD Bangli</title>
 </head>
 
 <body>
