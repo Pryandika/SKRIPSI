@@ -30,7 +30,7 @@
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">JALUR</div>
-                            <br>UMUM
+                            <br>{{Auth::user()->jalur;}}
                         </div>
                       </div>
                       <div class="col-sm">
@@ -42,13 +42,25 @@
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">ANTRIAN</div>
-                            <br>Nomor {{Auth::user()->no_antrian+1;}}
+                            <br>Nomor 
+                            {{Auth::user()->no_antrian;}}
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="text-center">
+                            <div class="font-weight-bold">ANTRIAN BERJALAN</div>
+                            <br>Nomor {{$minAntri}}
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">WAKTU</div>
-                            <br><span id="waktu"></span>
+                            <br>
+                            @if (is_null($auser->klinik_tujuan))
+                              <div>-</div>
+                            @else
+                            <span id="waktu"></span>
+                            @endif
                         </div>
                       </div>
                       <div class="col-sm">

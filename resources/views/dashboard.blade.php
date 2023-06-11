@@ -38,15 +38,14 @@
                                         <div class="col-sm-4">
                                             <div class="position-relative p-3 bg-blue mt-1" style="height: 180px">
                                                 {{$klinik->nama_klinik}} <br>
-                                                <small>{{$klinik->jam_buka}} - {{$klinik->jam_tutup}}</small> <br> <br>
-                                                <br> <br>
+                                                <small>{{$klinik->jam_buka}} - {{$klinik->jam_tutup}}</small> <br>
                                                 <button type="button"
                                                     onClick="klinik_value('{{ $klinik->nama_klinik }}', {{$klinik->id_klinik}})"
-                                                    class="btn btn-outline-light btn-sm" data-toggle="modal"
+                                                    class="btn btn-outline-light btn-sm mt-5" data-toggle="modal"
                                                     data-target="#{{$klinik->id_klinik}}">
                                                     Pilih Hari</button>
                                             </div>
-                                            <form method="post" action="{{ route('dashboard.update') }}"
+                                            <form method="post" action="{{ route('dashboard.update', $klinik->nama_klinik) }}"
                                                 class="mt-6 space-y-6">
                                                 @csrf
                                                 @method('patch')
@@ -55,16 +54,13 @@
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <div class="row">
-                                                                    <input id="nama_klinik{{$klinik->id_klinik}}"
+
+                                                                    <input id="klinik_tujuan"
                                                                         name="klinik_tujuan"
-                                                                        class="font-semibold text-xl text-gray-800 leading-tight mb-2">
-
-                                                                </div>
-
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                </button>
+                                                                        class="font-semibold text-xl text-gray-800 leading-tight mb-2" value="{{$klinik->nama_klinik}}" disabled>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                          </button>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col">
@@ -72,6 +68,8 @@
                                                                         <!-- /.Body -->
 
                                                                         @foreach($days as $day)
+                                                                        <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="no_antriana" id="no_antriana"
+                                                                        value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled>
                                                                         <div class="position-relative p-3 bg-blue mt-1"
                                                                             style="height: 180px">
                                                                             <input type="checkbox"
@@ -81,16 +79,17 @@
                                                                             {{$day['day']}} <br>
                                                                             {{$day['label']}} <br> <br> <br> <br>
                                                                             Antrian:
-                                                                            <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="no_antriana" id="no_antriana"
-                                                                        value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', '0')->where('tanggal_reservasi', $day['label'])->count()}}">
-                                                                        <button type="submit" class="btn btn-secondary position-absolute mb-4" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', '0')->where('tanggal_reservasi', $day['label'])->count()}}"> DAFTAR </button>
+                                                                            <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="sisa_antrian" id="sisa_antrian"
+                                                                        value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->whereNotNull('no_antrian')->count()}}" disabled>
+
+                                                                        
+
+                                                                        <button type="submit" class="btn btn-secondary position-absolute mb-4 sbmit" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}"> DAFTAR </button>
                                                                         </div>
 
                                                                        
                                                                         @endforeach
-                                                                        {{-- <div class="col"><p class="font-semibold text-xl text-gray-800 leading-tight mb-2"
-                                                                          value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', '0')->count()}}">
-                                                                          Kuota:{{$klinik->quota}}</p></div>    --}}
+                                                                        <div class="col"></div>   
                                                                           
                                                                                                          
                                         
@@ -136,6 +135,12 @@ $checkboxes.change(function () {
     } else {
         $checkboxes.prop('disabled', false);
     }
+});
+
+$('.sbmit').on('click',function(){
+    if($('input[type="checkbox"]:checked').length == 0) {
+       alert('Pilih Tanggal Reservasi');   
+    }   
 });
 
     function klinik_value(data, id) {

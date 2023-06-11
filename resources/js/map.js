@@ -48,9 +48,7 @@ function calcRouteMap(origin, destination, service, display) {
         .then((result) => {
             display.setDirections(result);
         })
-        .catch((e) => {
-            alert("Could not display directions due to: " + e);
-        });
+        .catch(() => {});
 }
 
 function calcWaktu(result) {

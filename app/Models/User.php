@@ -32,7 +32,9 @@ class User extends Authenticatable
         'no_antrian',
         'jalur',
         'ktp',
-        'bpjs'
+        'file_path_ktp',
+        'bpjs',
+        'file_path_bpjs',
     ];
 
     /**

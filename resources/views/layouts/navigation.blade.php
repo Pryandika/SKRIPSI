@@ -25,7 +25,6 @@
                     <a href="{{ route('loket') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>     
-
                 @endif
                 </div>
 
@@ -55,7 +54,7 @@
                     @endif
                 </div>
 
-                @if (Auth::user()->role == 'user' AND Auth::user()->tanggal_reservasi != NULL)
+                @if (Auth::user()->role == 'user')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('detail')" :active="request()->routeIs('detail')">
                         {{ __('Detail Antrian  ') }}
@@ -82,11 +81,7 @@
                 @endif
 
                 @if (Auth::user()->role == 'dokter')
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('tarifdokter')" :active="request()->routeIs('tarifdokter')">
-                        {{ __('Pola tarif  ') }}
-                    </x-nav-link>
-                </div>
+
                 @endif
 
             </div>
@@ -107,9 +102,6 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -140,10 +132,43 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+
+        @if (Auth::user()->role == 'user')
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+        @elseif (Auth::user()->role == 'admin')
+            <x-responsive-nav-link :href="route('adminDash')" :active="request()->routeIs('adminDash')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('tambahdokter')" :active="request()->routeIs('tambahdokter')">
+                {{ __('Tambah Dokter') }}
+            </x-responsive-nav-link>
+            
+            <x-responsive-nav-link :href="route('tambahklinik')" :active="request()->routeIs('tambahklinik')">
+                {{ __('Tambah Klinik') }}   
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('polatarif')" :active="request()->routeIs('polatarif')">
+                {{ __('Pola Tarif') }}
+            </x-responsive-nav-link>
+
+        @elseif (Auth::user()->role == 'dokter')
+            <x-responsive-nav-link :href="route('tarifdokter')" :active="request()->routeIs('tarifdokter')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+        @elseif (Auth::user()->role == 'loket')
+            <x-responsive-nav-link :href="route('loket')" :active="request()->routeIs('loket')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+        @endif
         </div>
+
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -153,9 +178,6 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

@@ -22,7 +22,8 @@ class DetailAntrianController extends Controller
     {
         $klinik = Klinik::all();
         $user = User::all();
-        return view('detailAntrian', compact('klinik', 'user'));
+        $auser = Auth::user();
+        return view('detailAntrian', compact('klinik', 'user', 'auser'));
     }
 
     /**

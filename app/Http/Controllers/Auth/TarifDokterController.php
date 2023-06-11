@@ -23,8 +23,9 @@ class TarifDokterController extends Controller
         $user = User::select('*')
         ->where([
             ['role', '=', '0'],
-            ['klinik_tujuan', '=', Auth::user()->klinik_tujuan]
+            ['klinik_tujuan', '=', Auth::user()->klinik_tujuan],
         ])
+        ->whereNotNull('jalur')
         ->get();
 
         
@@ -51,6 +52,8 @@ class TarifDokterController extends Controller
         $id = $request->input('id');
         $user = User::find($id);
         $user->biaya = $request->input('biaya');
+        $user->no_antrian = null;
+        $user->jalur = null;
         $user->save();
 
         return Redirect::route('tarifdokter');

@@ -33,18 +33,20 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>id</th>
+                        <th class="text-center">id</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">Alamat</th>
+                        <th class="text-center">Jalur</th>
                         <th class="text-center">Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($users as $user)
+                      @foreach ($users->sortBy('no_antrian') as $user)
                       <tr>
-                        <td>{{$user->id}}</td>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->alamat}}</td>
+                        <td class="text-center">{{$user->id}}</td>
+                        <td class="text-center">{{$user->name}}</td>
+                        <td class="text-center">{{$user->alamat}}</td>
+                        <td class="text-center">{{$user->jalur}}</td>
                         <td>
                           <div class="text-center">
                             <button type="button" value="{{$user->id}}" class="btn btn-default editbtn" >
@@ -59,13 +61,13 @@
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h4 class="modal-title">Tarif Tindakan</h4>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                     <div class="modal-body">
                                 <input type="hidden" name="id" id="id">
-                                  <input id="name" name="name" class="font-semibold text-xl text-gray-800 leading-tight mb-2">
+                                  <input id="name" name="name" class="font-semibold text-xl text-gray-800 leading-tight mb-2" disabled>
                                   <!-- /.Body -->
                                   <table class="table table-bordered">
                                     <thead>
@@ -99,7 +101,7 @@
                                 </div>
                                 <!-- /.modal-dialog -->
                               </div>
-                        </td>
+                          </td>
                       </tr>
                       @endforeach
                     </tbody>

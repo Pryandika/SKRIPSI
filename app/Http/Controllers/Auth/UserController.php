@@ -48,17 +48,21 @@ class UserController extends Controller
 
         ];
         
+        
 
         $user = User::all();
         $klinik = Klinik::all();
-        $auser = Auth::user();
 
-        if ($auser->tanggal_reservasi = 'NULL') {
-            return redirect('/jalur');
-        }
-        else{
-            return view('dashboard', ['users' => $user, 'kliniks' => $klinik, 'days' => $days], compact('user', 'klinik'));
-        }
+        $auser = Auth::user();
+        $maxAntri = User::where('klinik_tujuan', $auser->klinik_tujuan)->where('tanggal_reservasi', $auser->tanggal_reservasi)->max('no_antrian');
+
+            if (is_null($auser->jalur)) {
+                return redirect('/upload-file');
+            }
+            else{
+                
+                return view('dashboard', ['kliniks' => $klinik, 'days' => $days], compact('user', 'klinik'));
+            }
         
     }
 
@@ -66,20 +70,42 @@ class UserController extends Controller
     {
         $klinik = Klinik::all();
         $user = User::all();
-        return view('detailAntrian', compact('klinik', 'user'));
+        $auser = Auth::user();
+        $minAntri = User::where('klinik_tujuan', $auser->klinik_tujuan)->where('tanggal_reservasi', $auser->tanggal_reservasi)->min('no_antrian');
+
+        return view('detailAntrian', compact('klinik', 'user', 'auser', 'minAntri'));
     }
     
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request, $klinik): RedirectResponse
     {
-        $user = Auth::user();
+        $id = Auth::id();
+        $user = User::find($id);
         $user->no_antrian = $request->input('no_antrian');
-        $request->user()->fill($request->validated());
-        $request->user()->save();
+        $user->klinik_tujuan = $klinik;
+        $user->tanggal_reservasi = $request->input('tanggal_reservasi');
 
-        return Redirect::route('detail');
+
+
+
+        // $user = Auth::user();
+        // $user->no_antrian = $request->input('no_antrian');
+        // $user->klinik_tujuan = $request->input('klinik_tujuan');
+        // $request->user()->fill($request->validated());
+        // $request->user()->save();
+        if (is_null($user->tanggal_reservasi)) {
+            return redirect()->back()->with('alert', 'Centang hari reservasi antrian');
+        }
+        elseif($user->no_antrian = $user->no_antrian) {
+            return redirect()->back()->with('alert', 'Anda sudah daftar');
+        }
+        else{
+            $user->save();
+            return Redirect::route('detail');
+        }
+        
     }
 
 }

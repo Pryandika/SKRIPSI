@@ -26,7 +26,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <div class="py-12 px-12">
+                    <div class="py-3 px-10">
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h3>{{ $totuser }}</h3>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-sm">
-                    <div class="py-12 px-12">
+                    <div class="py-3 px-10">
                         <div class="small-box bg-gradient-success">
                             <div class="inner">
                                 <h3>{{ $totklinik }}</h3>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="col-sm">
-                    <div class="py-12 px-12">
+                    <div class="py-3 px-10">
                         <div class="small-box bg-gradient-primary">
                             <div class="inner">
                                 <h3>{{ $totdokter }}</h3>

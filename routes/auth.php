@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\PolaTarifController;
 use App\Http\Controllers\Auth\DetailAntrianController;
 use App\Http\Controllers\Auth\LoketController;
 use App\Http\Controllers\Auth\TarifDokterController;
-use App\Http\Controllers\FileUpload;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\JalurController;
 
@@ -28,7 +28,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+    Route::get('login', [AuthenticatedSessionController::class, 'login'])
                 ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
@@ -76,13 +76,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth','user-role:user'])->group(function()
 {
     Route::get('/dashboard', [UserController::class, 'showKlinik'])->name('dashboard');
-    Route::patch('/dashboard', [UserController::class, 'update'])->name('dashboard.update');
+    Route::patch('/dashboard/{klinik}', [UserController::class, 'update'])->name('dashboard.update');
     Route::get('/detail', [UserController::class, 'show'])->name('detail');
 
-    Route::get('/jalur', [JalurController::class, 'jalur'])->name('jalur');
-
-    Route::get('/upload-file', [FileUpload::class, 'createForm']);
-    Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
+    Route::get('/upload-file', [FileUploadController::class, 'createForm'])->name('jalur');
+    Route::post('/upload-file', [FileUploadController::class, 'fileUpload'])->name('fileUpload');
+    Route::get('/jalur-umum', [FileUploadController::class, 'jalurUmum'])->name('jalurUmum');
 });
 
 // Route Admin
@@ -124,6 +123,5 @@ Route::middleware(['auth','user-role:loket'])->group(function()
     Route::get('modal-loket/', [LoketController::class, 'modalLoket']);
     Route::put('update-loket/{id}/{klinik}', [LoketController::class, 'update'])->name('updateloket');
 
-    Route::put('update-tarifdokter', [TarifDokterController::class, 'update']);
 
 });
