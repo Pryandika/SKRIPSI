@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Klinik;
 use App\Models\Polatarif;
+use Carbon\Carbon;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
@@ -19,6 +20,7 @@ class TarifDokterController extends Controller
 {
     public function showUser(Request $request)
     {
+        $today = Carbon::now()->format('l, d F Y');
         $currentUser = Auth::user()->klinik_tujuan;
         $user = User::select('*')
         ->where([
@@ -34,7 +36,7 @@ class TarifDokterController extends Controller
         ->get();
 
         $klinik = Klinik::all();
-        return view('tarifDokter', ['users' => $user, 'kliniks' => $klinik, 'polatarifs' => $polatarif ], compact("currentUser"));
+        return view('tarifDokter', ['users' => $user, 'kliniks' => $klinik, 'polatarifs' => $polatarif ], compact('currentUser', 'today'));
     }
 
     public function showTambahDokter()

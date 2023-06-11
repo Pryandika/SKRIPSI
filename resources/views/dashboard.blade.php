@@ -68,23 +68,24 @@
                                                                         <!-- /.Body -->
 
                                                                         @foreach($days as $day)
-                                                                        <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="no_antriana" id="no_antriana"
-                                                                        value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled>
+                                                                        {{-- <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="no_antriana" id="no_antriana"
+                                                                        value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> --}}
                                                                         <div class="position-relative p-3 bg-blue mt-1"
                                                                             style="height: 180px">
                                                                             <input type="checkbox"
+                                                                                data-class="abc{{$day['day']}}"
                                                                                 name="tanggal_reservasi"
                                                                                 value="{{$day['label']}}"
                                                                                 id="tanggal_reservasi">
                                                                             {{$day['day']}} <br>
                                                                             {{$day['label']}} <br> <br> <br> <br>
                                                                             Antrian:
-                                                                            <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="sisa_antrian" id="sisa_antrian"
+                                                                            <input class="bg-blue font-semibold text-xl text-gray-800 mb-2" name="sisa_antrian" id="sisa_antrian"
                                                                         value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->whereNotNull('no_antrian')->count()}}" disabled>
 
                                                                         
 
-                                                                        <button type="submit" class="btn btn-secondary position-absolute mb-4 sbmit" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}"> DAFTAR </button>
+                                                                        <button type="submit" data-class="sub_abc{{$day['day']}}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 sbmit" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> DAFTAR </button>
                                                                         </div>
 
                                                                        
@@ -115,6 +116,7 @@
 
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
 </script>
@@ -125,9 +127,23 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 <script>
-      var $checkboxes = $('input[type=checkbox]');
+
+var $checkboxes = $('input[type=checkbox]');
 
 $checkboxes.change(function () {
+    var getClass = $(this).attr('data-class');
+    var flag = 0;
+    $('input[data-class="' + getClass + '"]').each(function(){
+    if(this.checked)
+      flag = 1;
+  });
+
+  if(flag) {
+    $('button[data-class="sub_' + getClass + '"]').removeAttr('disabled');
+  } else {
+    $('button[data-class="sub_' + getClass + '"]').attr('disabled', true);
+  }
+
     if (this.checked) {
         if ($checkboxes.filter(':checked').length == 1) {
             $checkboxes.not(':checked').prop('disabled', true);
@@ -142,6 +158,8 @@ $('.sbmit').on('click',function(){
        alert('Pilih Tanggal Reservasi');   
     }   
 });
+
+
 
     function klinik_value(data, id) {
         var x = data;

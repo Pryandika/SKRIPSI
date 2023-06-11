@@ -21,6 +21,9 @@ use App\Http\Controllers\Auth\TarifDokterController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\JalurController;
+use App\Http\Controllers\Auth\DetailAdminPasienController;
+use App\Http\Controllers\Auth\DetailAdminKlinikController;
+use App\Http\Controllers\Auth\DetailAdminDokterController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -103,6 +106,25 @@ Route::middleware(['auth','user-role:admin'])->group(function()
     Route::post('polatarif', [PolaTarifController::class, 'addTarif']);
 
     Route::get('/admin', [AdminController::class, 'showAdmin'])->name('adminDash');
+
+    //detail admin
+    Route::get('admin/detail-pasien', [DetailAdminPasienController::class, 'showDetailPasien'])
+    ->name('showdetailpasien');
+
+    Route::get('/admin/detail-pasien/view/ktp/{id}',[DetailAdminPasienController::class,'viewKtp']);
+
+    Route::get('/admin/detail-pasien/view/bpjs/{id}',[DetailAdminPasienController::class,'viewBpjs']);
+
+    Route::get('admin/detail-klinik', [DetailAdminKlinikController::class, 'showDetailKlinik'])
+    ->name('showdetailklinik');
+
+    Route::get('admin/detail-klinik/delete/{id}',[DetailAdminKlinikController::class,'destroy']);
+
+    Route::get('admin/detail-dokter', [DetailAdminDokterController::class, 'showDetailDokter'])
+    ->name('showdetaildokter');
+
+
+    Route::get('admin/detail-dokter/delete/{id}',[DetailAdminDokterController::class,'destroy']);
 });
 
 

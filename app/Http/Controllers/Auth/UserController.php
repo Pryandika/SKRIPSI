@@ -95,16 +95,11 @@ class UserController extends Controller
         // $user->klinik_tujuan = $request->input('klinik_tujuan');
         // $request->user()->fill($request->validated());
         // $request->user()->save();
-        if (is_null($user->tanggal_reservasi)) {
-            return redirect()->back()->with('alert', 'Centang hari reservasi antrian');
-        }
-        elseif($user->no_antrian = $user->no_antrian) {
-            return redirect()->back()->with('alert', 'Anda sudah daftar');
-        }
-        else{
+
+
             $user->save();
             return Redirect::route('detail');
-        }
+
         
     }
 

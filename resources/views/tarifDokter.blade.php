@@ -41,7 +41,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($users->sortBy('no_antrian') as $user)
+                      @foreach ($users->where('tanggal_reservasi', $today)->sortBy('no_antrian') as $user)
                       <tr>
                         <td class="text-center">{{$user->id}}</td>
                         <td class="text-center">{{$user->name}}</td>
@@ -61,9 +61,6 @@
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h4 class="modal-title">Tarif Tindakan</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
                                     </div>
                                     <div class="modal-body">
                                 <input type="hidden" name="id" id="id">
@@ -92,7 +89,6 @@
                                   <input type="text" id="biaya" name="biaya"/>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                       <x-primary-button>{{ __('Simpan') }}</x-primary-button>
                                     </div>
                                   </form>

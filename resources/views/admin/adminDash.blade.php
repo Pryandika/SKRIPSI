@@ -35,7 +35,7 @@
                             <div class="icon">
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
-                            <a href="#" class="small-box-footer">
+                            <a href="{{ route('showdetailpasien')}}" class="small-box-footer">
                                 More info <i class="fas fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -51,7 +51,7 @@
                             <div class="icon">
                                 <i class="fas fa-user-plus"></i>
                             </div>
-                            <a href="#" class="small-box-footer">
+                            <a href="{{ route('showdetailklinik')}}" class="small-box-footer">
                                 More info <i class="fas fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -67,7 +67,7 @@
                             <div class="icon">
                                 <i class="fas fa-user-plus"></i>
                             </div>
-                            <a href="#" class="small-box-footer">
+                            <a href="{{ route('showdetaildokter')}}" class="small-box-footer">
                                 More info <i class="fas fa-arrow-circle-right"></i>
                             </a>
                         </div>
