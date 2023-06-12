@@ -20,6 +20,11 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function login()
+    {
+        return redirect('/');
+    }
+
     /**
      * Handle an incoming authentication request.
      */

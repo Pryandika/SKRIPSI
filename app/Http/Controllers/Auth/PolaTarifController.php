@@ -29,7 +29,7 @@ class PolaTarifController extends Controller
         $request->validate([
             'nama_klinik' => ['required', 'string', 'max:255'],
             'nama_pola' => ['required', 'string', 'max:255'],
-            'biaya' => ['required'],
+            'biaya' => ['required', 'numeric'],
         ]);
 
         $polatarif = Polatarif::create([
