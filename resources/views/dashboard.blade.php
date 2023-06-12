@@ -70,7 +70,7 @@
                                                                         @foreach($days as $day)
                                                                         {{-- <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="no_antriana" id="no_antriana"
                                                                         value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> --}}
-                                                                        <div class="position-relative p-3 bg-blue mt-1 my-xs-5"
+                                                                        <div class="position-relative p-3 mb-4 bg-blue mt-1 my-xs-5 my-4"
                                                                             style="height: 180px">
                                                                             <input type="checkbox"
                                                                                 data-class="abc{{$day['day']}}"
@@ -78,11 +78,11 @@
                                                                                 value="{{$day['label']}}"
                                                                                 id="tanggal_reservasi">
                                                                             {{$day['day']}} <br>
-                                                                            <div class="mb-4">{{$day['label']}}</div> <br>
+                                                                            <div class="mb-3 mb-sm-1 mb-md-1 mb-sx-1">{{$day['label']}}</div> <br>
                                                                             Antrian:
-                                                                            <input class=" bg-blue font-semibold text-xl text-gray-800" name="sisa_antrian" id="sisa_antrian"
+                                                                            <input class="d-inline bg-blue font-semibold text-xl text-gray-800 " name="sisa_antrian" id="sisa_antrian"
                                                                         value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->whereNotNull('no_antrian')->count()}}" disabled>                                                                
-                                                                        <button type="submit" data-class="sub_abc{{$day['day']}}" class=" px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 sbmit" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> DAFTAR </button>
+                                                                        <button type="submit" data-class="sub_abc{{$day['day']}}" class="px-4 py-2 mt-sm-3 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 sbmit" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> DAFTAR </button>
                                                                         </div>
                                                                         @endforeach
                                             </form>
