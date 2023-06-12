@@ -30,43 +30,41 @@
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">JALUR</div>
-                            <br>{{Auth::user()->jalur;}}
+                            <div class="mb-5">{{Auth::user()->jalur;}}</div>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">HARI</div>
-                            <br>{{Auth::user()->tanggal_reservasi;}}
+                            <div class="mb-5">{{Auth::user()->tanggal_reservasi;}}</div>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">ANTRIAN</div>
-                            <br>Nomor 
-                            {{Auth::user()->no_antrian;}}
+                            <div class="mb-5">Nomor {{Auth::user()->no_antrian;}}</div> 
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">ANTRIAN BERJALAN</div>
-                            <br>Nomor {{$minAntri}}
+                            <div class="mb-5">Nomor {{$minAntri}}</div>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">WAKTU</div>
-                            <br>
                             @if (is_null($auser->klinik_tujuan))
-                              <div>-</div>
+                              <div class="mb-5">-</div>
                             @else
-                            <span id="waktu"></span>
+                            <div class="mb-5"><span id="waktu"></span></div>
                             @endif
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="text-center">
                             <div class="font-weight-bold">BIAYA</div>
-                            <br>Rp.{{Auth::user()->biaya;}}
+                            <div class="mb-5">Rp.{{Auth::user()->biaya;}}</div>
                         </div>
                       </div>
                     </div>

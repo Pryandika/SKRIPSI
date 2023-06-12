@@ -18,6 +18,14 @@ class DetailAdminKlinikController extends Controller
         return view('admin.detail.detailKlinik', ['users' => $user, 'kliniks' => $klinik]);
     }
 
+    public function update($id, $status)
+    {
+        $klinik = Klinik::find($id);
+        $klinik->is_active = $status;
+        $klinik->save();
+
+        return Redirect::to('/admin/detail-klinik');
+    }
 
     public function destroy($id)
     {

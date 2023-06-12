@@ -119,6 +119,7 @@ Route::middleware(['auth','user-role:admin'])->group(function()
     ->name('showdetailklinik');
 
     Route::get('admin/detail-klinik/delete/{id}',[DetailAdminKlinikController::class,'destroy']);
+    Route::get('admin/detail-klinik/status/{id}/{status}',[DetailAdminKlinikController::class,'update']);
 
     Route::get('admin/detail-dokter', [DetailAdminDokterController::class, 'showDetailDokter'])
     ->name('showdetaildokter');
