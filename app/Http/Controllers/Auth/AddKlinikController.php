@@ -25,12 +25,12 @@ class AddKlinikController extends Controller
      */
     public function addKlinik(Request $request): RedirectResponse
     {
-        // $request->validate([
-        //     'nama_klinik' => ['required', 'string', 'max:255'],
-        //     'jam_buka' => ['required'],
-        //     'jam_tutup' => ['required'],
-        //     'status_klinik' => ['required', 'integer', 'max:255'],
-        // ]);
+        $request->validate([
+            'nama_klinik' => ['required', 'string', 'max:255'],
+            'quota' => ['required', 'numeric'],
+            'jam_buka' => ['required'],
+            'jam_tutup' => ['required'],
+        ]);
 
         $klinik = Klinik::create([
             'nama_klinik' => $request->nama_klinik,
