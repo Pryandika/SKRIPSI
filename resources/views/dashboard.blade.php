@@ -40,9 +40,9 @@
                                                 {{$klinik->nama_klinik}} <br>
                                                 <small>{{$klinik->jam_buka}} - {{$klinik->jam_tutup}}</small> <br>
                                                 <button type="button"
-                                                    onClick="klinik_value('{{ $klinik->nama_klinik }}', {{$klinik->id_klinik}})"
+                                                    onClick="klinik_value('{{ $klinik->nama_klinik }}', {{$klinik->id}})"
                                                     class="btn btn-outline-light btn-sm mt-5" data-toggle="modal"
-                                                    data-target="#{{$klinik->id_klinik}}">
+                                                    data-target="#{{$klinik->id}}">
                                                     Pilih Hari</button>
                                             </div>
                                             <form method="post" action="{{ route('dashboard.update', $klinik->nama_klinik) }}"
@@ -50,7 +50,7 @@
                                                 @csrf
                                                 @method('patch')
 
-                                                <div class="modal bd-example-modal-lg" id="{{$klinik->id_klinik}}">
+                                                <div class="modal bd-example-modal-lg" id="{{$klinik->id}}">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
