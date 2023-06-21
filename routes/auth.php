@@ -24,6 +24,7 @@ use App\Http\Controllers\Auth\JalurController;
 use App\Http\Controllers\Auth\DetailAdminPasienController;
 use App\Http\Controllers\Auth\DetailAdminKlinikController;
 use App\Http\Controllers\Auth\DetailAdminDokterController;
+use App\Http\Controllers\Auth\LaporanController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -103,6 +104,8 @@ Route::middleware(['auth','user-role:admin'])->group(function()
     Route::get('polatarif', [PolaTarifController::class, 'createTarif'])
     ->name('polatarif');
 
+    Route::get('laporan', [LaporanController::class, 'showLaporan']);
+
     Route::post('polatarif', [PolaTarifController::class, 'addTarif']);
 
     Route::get('/admin', [AdminController::class, 'showAdmin'])->name('adminDash');
@@ -136,6 +139,7 @@ Route::middleware(['auth','user-role:dokter'])->group(function()
     Route::get('/edit-tarifdokter/{id}', [TarifDokterController::class, 'edit']);
 
     Route::put('update-tarifdokter', [TarifDokterController::class, 'update']);
+    Route::put('update-laporan-tarifdokter/{id}', [TarifDokterController::class, 'updateLaporan'])->name('laporan.update');
 });
 
 // Route Loket
@@ -145,6 +149,5 @@ Route::middleware(['auth','user-role:loket'])->group(function()
     Route::get('/edit-loket/{id}', [LoketController::class, 'edit']);
     Route::get('modal-loket/', [LoketController::class, 'modalLoket']);
     Route::put('update-loket/{id}/{klinik}', [LoketController::class, 'update'])->name('updateloket');
-
 
 });

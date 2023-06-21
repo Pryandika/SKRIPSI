@@ -60,8 +60,7 @@ class UserController extends Controller
                 return redirect('/upload-file');
             }
             else{
-                
-                return view('dashboard', ['kliniks' => $klinik, 'days' => $days], compact('user', 'klinik'));
+                return view('dashboard', ['kliniks' => $klinik, 'days' => $days], compact('user', 'klinik', 'auser'));
             }
         
     }
@@ -72,8 +71,10 @@ class UserController extends Controller
         $user = User::all();
         $auser = Auth::user();
         $minAntri = User::where('klinik_tujuan', $auser->klinik_tujuan)->where('tanggal_reservasi', $auser->tanggal_reservasi)->min('no_antrian');
+        $sisaAntri = Auth::user()->no_antrian - $minAntri;
+        $estimasiAntri = $sisaAntri * 5;
 
-        return view('detailAntrian', compact('klinik', 'user', 'auser', 'minAntri'));
+        return view('detailAntrian', compact('klinik', 'user', 'auser', 'minAntri', 'sisaAntri', 'estimasiAntri'));
     }
     
     /**

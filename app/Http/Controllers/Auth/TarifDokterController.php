@@ -10,7 +10,9 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Klinik;
 use App\Models\Polatarif;
+use App\Models\Laporan;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
@@ -53,9 +55,38 @@ class TarifDokterController extends Controller
     {
         $id = $request->input('id');
         $user = User::find($id);
+
+        $laporan = Laporan::create([
+            'name' => $user->name,
+            'tanggal_reservasi' => $user->tanggal_reservasi,
+            'klinik_tujuan' => $user->klinik_tujuan,
+            'jalur' => $user->jalur,
+            'status' => 'HADIR',
+        ]);
+        event(new Registered($laporan));
+
         $user->biaya = $request->input('biaya');
         $user->no_antrian = null;
-        $user->jalur = null;
+        $user->save();
+
+        return Redirect::route('tarifdokter');
+    }
+
+    public function updateLaporan($id)
+    {
+        $user = User::find($id);
+        
+        $laporan = Laporan::create([
+            'name' => $user->name,
+            'tanggal_reservasi' => $user->tanggal_reservasi,
+            'klinik_tujuan' => $user->klinik_tujuan,
+            'jalur' => $user->jalur,
+            'status' => 'TIDAK HADIR',
+        ]);
+
+        event(new Registered($laporan));
+        $user->biaya = null;
+        $user->no_antrian = null;
         $user->save();
 
         return Redirect::route('tarifdokter');

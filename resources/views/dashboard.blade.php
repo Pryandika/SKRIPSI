@@ -18,7 +18,7 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Dashboard') }}
+                 {{ __('Selamat Datang') }} <u>{{$auser->name}}!</u>
             </h2>
         </x-slot>
 
@@ -68,22 +68,30 @@
                                                                         <!-- /.Body -->
 
                                                                         @foreach($days as $day)
+                                                                        <div hidden> {{$sisaAntri = $user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->whereNotNull('no_antrian')->count()}}</div>
                                                                         {{-- <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="no_antriana" id="no_antriana"
                                                                         value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> --}}
+                                                                        @if ($user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->whereNotNull('no_antrian')->count() < $klinik->quota)
                                                                         <div class="position-relative p-3 bg-blue mt-1 my-xs-5"
-                                                                            style="height: 180px">
-                                                                            <input type="checkbox"
-                                                                                data-class="abc{{$day['day']}}"
-                                                                                name="tanggal_reservasi"
-                                                                                value="{{$day['label']}}"
-                                                                                id="tanggal_reservasi">
-                                                                            {{$day['day']}} <br>
-                                                                            <div class="mb-4">{{$day['label']}}</div> <br>
-                                                                            Antrian:
-                                                                            <input class=" bg-blue font-semibold text-xl text-gray-800" name="sisa_antrian" id="sisa_antrian"
-                                                                        value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->whereNotNull('no_antrian')->count()}}" disabled>                                                                
-                                                                        <button type="submit" data-class="sub_abc{{$day['day']}}" class=" px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 sbmit" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> DAFTAR </button>
+                                                                        style="height: 180px">
+                                                                        <input type="checkbox"
+                                                                            data-class="abc{{$day['day']}}"
+                                                                            name="tanggal_reservasi"
+                                                                            value="{{$day['label']}}"
+                                                                            id="tanggal_reservasi">
+                                                                        {{$day['day']}} <br>
+                                                                        <div class="mb-4">{{$day['label']}}</div>
+                                                                        <div class="row mt-5">
+                                                                            <div class="col">
+                                                                                <div>Sisa Antrian: {{$sisaAntri}}</div>
+                                                                                <div>Estimasi Waktu Dilayani: {{$sisaAntri * 5}} Menit</div>
+                                                                            </div>                                                               
+                                                                            <div class="col">
+                                                                                <button type="submit" data-class="sub_abc{{$day['day']}}" class="text-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 sbmit" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> DAFTAR </button>
+                                                                            </div>
                                                                         </div>
+                                                                    </div>
+                                                                        @endif
                                                                         @endforeach
                                             </form>
                                         </div>

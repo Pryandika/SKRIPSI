@@ -41,7 +41,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($users->where('tanggal_reservasi', $today)->sortBy('no_antrian') as $user)
+                      @foreach ($users->where('tanggal_reservasi', $today)->whereNotNull('no_antrian')->sortBy('no_antrian') as $user)
                       <tr>
                         <td class="text-center">{{$user->id}}</td>
                         <td class="text-center">{{$user->name}}</td>
@@ -49,11 +49,18 @@
                         <td class="text-center">{{$user->jalur}}</td>
                         <td>
                           <div class="text-center">
+                            <form method="POST" action="{{ route('laporan.update', $user->id) }}" class="inline">
+                              @csrf
+                              @method('PUT')
+                            <button class="btn btn-danger" onclick="">
+                              <a>Lewati</a>
+                            </button>
+                            </form>
                             <button type="button" value="{{$user->id}}" class="btn btn-default editbtn" >
                                 Tambah Biaya
                               </button>
                             </div>
-                            <form method="POST" action="{{ url('update-tarifdokter') }}" class="mt-6 space-y-6">
+                            <form method="POST" action="{{ url('update-tarifdokter') }}" class="">
                               @csrf
                               @method('PUT')
                               <div class="modal fade" id="editModal">
@@ -66,7 +73,7 @@
                                 <input type="hidden" name="id" id="id">
                                   <input id="name" name="name" class="font-semibold text-xl text-gray-800 leading-tight mb-2" disabled>
                                   <!-- /.Body -->
-                                  <table class="table table-bordered">
+                                  <table class="table table-bordered" id="tabelTindakan">
                                     <thead>
                                       <tr>
                                         <th>Nama Tindakan</th>
@@ -76,17 +83,21 @@
                                     </thead>
                                     <tbody>
                                       <div hidden>{{$i=1}}</div>
-                                      @foreach ($polatarifs as $polatarif)
+                                      @foreach ($polatarifs as $index => $polatarif)
                                       <tr>
                                         <td>{{$polatarif->nama_pola}}</td>
-                                        <td>{{$polatarif->biaya}}</td>
+                                        <td id="biayaKomaTabel{{$index}}"> 
+                                          <input type="hidden" name="tabelBiaya{{$index}}" id="tabelBiaya{{$index}}" value="{{$polatarif->biaya}}">
+                                        </td>
                                         <td><input class="cbox" type="checkbox" data-price="{{$polatarif->biaya}}" id="{{$polatarif->id_pola}}"></td>
                                       </tr>
                                       @endforeach
                             
                                     </tbody>
                                   </table>
-                                  <input type="text" id="biaya" name="biaya"/>
+                                  <input type="hidden" id="biaya" name="biaya"/>
+                                  <div class="text-bold">Total Biaya:</div>
+                                  <div class="" id="biayaKoma">Rp. 0</div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                       <x-primary-button>{{ __('Simpan') }}</x-primary-button>
@@ -137,9 +148,14 @@
         return +this.dataset.price
       })
       .get();
-    // test we have an array of values
+    // test we have an array of values   
     const sum = vals.length>0 ? vals.reduce((a, b) => a + b) : 0; // if no, zero sum
+    const sumkoma = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     $('#biaya').val(sum)
+
+    // update total biaya
+    $('#biayaKomaTabel').html('Rp.' + sumkoma)
+    $('#biayaKoma').html('Rp.' + sumkoma)    
   })
 })
 
@@ -149,6 +165,7 @@
       $(document).on('click', '.editbtn', function(){
         
         var user_id = $(this).val();
+
         //alert(user_id);
         $('#editModal').modal('show');
 
@@ -156,12 +173,20 @@
           type: "GET",
           url: "/edit-tarifdokter/"+user_id,
           success: function (response){
-            console.log(response);
             $('#id').val(response.user.id);
             $('#name').val(response.user.name);
             $('#biaya').val(response.user.biaya);
           }
         });
-      });
-    });
+
+             // update koma pada tabel
+      var table = document.getElementById("tabelTindakan");
+      var tbodyRowCount = table.tBodies[0].rows.length;
+      for (let index = 0; index < tbodyRowCount; index++){
+      var angkaTabelKoma = document.getElementById('tabelBiaya'+[index]).value;
+      const konfersiKoma = angkaTabelKoma.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      document.getElementById('biayaKomaTabel'+[index]).innerHTML = 'Rp. ' + konfersiKoma;
+    }
+   });
+});
 </script>

@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('polatarifs', function (Blueprint $table) {
+        Schema::create('laporan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_klinik', 255);
+            $table->string('name');
+            $table->string('tanggal_reservasi')->nullable();
             $table->string('klinik_tujuan')->nullable();
-            $table->integer('no_antrian')->nullable();
-            $table->integer('biaya');
+            $table->string('jalur')->nullable();
+            $table->string('status')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('polatarif');
+        Schema::dropIfExists('laporan');
     }
 };
