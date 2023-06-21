@@ -137,6 +137,9 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('detail')" :active="request()->routeIs('detail')">
+                {{ __('Detail Antrian') }}
+            </x-responsive-nav-link>
 
         @elseif (Auth::user()->role == 'admin')
             <x-responsive-nav-link :href="route('adminDash')" :active="request()->routeIs('adminDash')">
@@ -162,7 +165,7 @@
 
         @elseif (Auth::user()->role == 'loket')
             <x-responsive-nav-link :href="route('loket')" :active="request()->routeIs('loket')">
-                {{ __('Dashboard') }}
+                {{ __('Loket') }}
             </x-responsive-nav-link>
 
         @endif
