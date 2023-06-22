@@ -1,8 +1,2 @@
-import './bootstrap';
-import './map';
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+import "./bootstrap.js";
+import "../css/app.css";

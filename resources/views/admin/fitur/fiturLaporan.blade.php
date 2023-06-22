@@ -14,9 +14,21 @@
     <!-- Main content -->
     <section class="content">
       <div class="container">
-        <div class="card mt-5">
+        <h2>Laporan</h2>
+        <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Laporan Kunjungan Pasien</h3>
+              <h3 class="card-title">
+              <form method="GET" action="{{ route('laporanupdate')}}">
+                @csrf
+              <x-text-input id="date1" class="mt-1" type="date" name="date1" :value="old('date1')" required autofocus /> sampai
+              <x-input-error :messages="$errors->get('date1')" class="mt-2" /> 
+                <x-text-input id="date2" class="mt-1" type="date" name="date2" :value="old('date2')" required autofocus />
+                <x-input-error :messages="$errors->get('date2')" class="mt-2" />
+                  
+                  <x-primary-button class="ml-4">
+                    {{ __('Cari') }}
+                </x-primary-button>
+              </form>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -31,6 +43,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @if ($laporanUpdateds->isEmpty())
                   @foreach ($laporans as $laporan)
                   <tr>
                     <td class="text-center">{{$laporan->name}}</td>
@@ -40,6 +53,18 @@
                     <td class="text-center">{{$laporan->status}}</td>
                   </tr>
                   @endforeach
+                  @else
+                  @foreach ($laporanUpdateds as $laporanUpdated)
+                  <tr>
+                    <td class="text-center">{{$laporanUpdated->name}}</td>
+                    <td class="text-center">{{$laporanUpdated->tanggal_reservasi}}</td>
+                    <td class="text-center">{{$laporanUpdated->klinik_tujuan}}</td>
+                    <td class="text-center">{{$laporanUpdated->jalur}}</td>
+                    <td class="text-center">{{$laporanUpdated->status}}</td>
+                  </tr>
+                  @endforeach
+                  @endif
+                  
                 </tbody>
               </table>
             </div>

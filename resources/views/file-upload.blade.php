@@ -1,26 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <title>RSUD Bangli</title>
-    <style>
-        .container {
-            max-width: 500px;
-        }
-        dl, ol, ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-    </style>
-</head>
-<body>
     <x-app-layout>
         <x-slot name="header">
           <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Loket') }}
+            {{ __('Upload File') }}
           </h2>
         </x-slot>
     
@@ -64,5 +45,3 @@
 
     </div>
 </x-app-layout>
-</body>
-</html>

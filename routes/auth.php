@@ -13,14 +13,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AddDokterController; 
 use App\Http\Controllers\Auth\AddKlinikController;
 use App\Http\Controllers\Auth\AdminController;
-use App\Http\Controllers\Auth\AdminChartController;
 use App\Http\Controllers\Auth\PolaTarifController;
-use App\Http\Controllers\Auth\DetailAntrianController;
-use App\Http\Controllers\Auth\LoketController;
 use App\Http\Controllers\Auth\TarifDokterController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\Auth\JalurController;
 use App\Http\Controllers\Auth\DetailAdminPasienController;
 use App\Http\Controllers\Auth\DetailAdminKlinikController;
 use App\Http\Controllers\Auth\DetailAdminDokterController;
@@ -104,7 +100,8 @@ Route::middleware(['auth','user-role:admin'])->group(function()
     Route::get('polatarif', [PolaTarifController::class, 'createTarif'])
     ->name('polatarif');
 
-    Route::get('laporan', [LaporanController::class, 'showLaporan']);
+    Route::get('laporan', [LaporanController::class, 'showLaporan'])->name('laporan');
+    Route::get('laporan-update', [LaporanController::class, 'updateRangeLaporan'])->name('laporanupdate');
 
     Route::post('polatarif', [PolaTarifController::class, 'addTarif']);
 
@@ -142,12 +139,3 @@ Route::middleware(['auth','user-role:dokter'])->group(function()
     Route::put('update-laporan-tarifdokter/{id}', [TarifDokterController::class, 'updateLaporan'])->name('laporan.update');
 });
 
-// Route Loket
-Route::middleware(['auth','user-role:loket'])->group(function()
-{
-    Route::get('loket', [LoketController::class, 'showKlinik'])->name('loket');
-    Route::get('/edit-loket/{id}', [LoketController::class, 'edit']);
-    Route::get('modal-loket/', [LoketController::class, 'modalLoket']);
-    Route::put('update-loket/{id}/{klinik}', [LoketController::class, 'update'])->name('updateloket');
-
-});

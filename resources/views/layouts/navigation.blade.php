@@ -78,6 +78,11 @@
                             {{ __('Pola Tarif  ') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('laporan')" :active="request()->routeIs('polatarif')">
+                            {{ __('Laporan Kunjungan  ') }}
+                        </x-nav-link>
+                    </div>
                 @endif
 
                 @if (Auth::user()->role == 'dokter')
@@ -88,7 +93,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
+                <x-dropdown width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>

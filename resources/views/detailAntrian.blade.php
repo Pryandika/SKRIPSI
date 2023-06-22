@@ -1,24 +1,10 @@
-<!doctype html>
-<html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-    <title>RSUD Bangli</title>
-</head>
-
-<body>
-    <x-app-layout>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1XnPw1i76KYYec7QX9UCWDDCo1_uCO2Y&callback=initMap&v=weekly"
+  async defer
+>
+</script>
+<x-app-layout>
             <div id="map"></div>
             <div id="sidebar">
                 <div class="mx-5 mt-5">
@@ -102,12 +88,70 @@
                   </div>
               <div id="panel"></div>
             </div>
-</x-app-layout>
+          </div>
+      </x-app-layouts>
 
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1XnPw1i76KYYec7QX9UCWDDCo1_uCO2Y&callback=initMap&v=weekly"
-  defer
->
+<script>
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 9,
+        center: { lat: -8.4095, lng: 115.1889 }, // Bali.
+    });
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer({
+        draggable: true,
+        map,
+        // panel: document.getElementById("panel"),
+    });
+
+    directionsRenderer.addListener("directions_changed", () => {
+        const directions = directionsRenderer.getDirections();
+
+        if (directions) {
+            calcWaktu(directions);
+        }
+    });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            };
+            calcRouteMap(
+                pos,
+                { lat: -8.4564415307019, lng: 115.35314530432309 },
+                directionsService,
+                directionsRenderer
+            );
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        alert("Geolocation is not supported by your browser.");
+    }
+}
+
+function calcRouteMap(origin, destination, service, display) {
+    service
+        .route({
+            origin: origin,
+            destination: destination,
+            travelMode: google.maps.TravelMode.DRIVING,
+            avoidTolls: true,
+        })
+        .then((result) => {
+            display.setDirections(result);
+        })
+        .catch(() => {});
+}
+
+function calcWaktu(result) {
+    const waktu = result.routes[0].legs[0].duration.text;
+    document.getElementById("waktu").innerHTML = waktu;
+}
+
+window.initMap = initMap;
+
 </script>
 
 <script>

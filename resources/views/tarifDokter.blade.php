@@ -1,20 +1,4 @@
-<!doctype html>
-<html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-
-    <title>Dokter RSUD Bangli</title>
-</head>
-
-<body>
     <x-app-layout>
         {{-- Header --}}
         <x-slot name="header">
@@ -136,14 +120,10 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-</body>
-
-</html>
-
 <script>
   $(function() {
   $(".cbox").on("change", function() {
-    const vals = $(".cbox:checked")
+    const vals = $(".cbox:checked");
       .map(function() {
         return +this.dataset.price
       })
@@ -151,11 +131,11 @@
     // test we have an array of values   
     const sum = vals.length>0 ? vals.reduce((a, b) => a + b) : 0; // if no, zero sum
     const sumkoma = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    $('#biaya').val(sum)
+    $('#biaya').val(sum);
 
     // update total biaya
-    $('#biayaKomaTabel').html('Rp.' + sumkoma)
-    $('#biayaKoma').html('Rp.' + sumkoma)    
+    $('#biayaKomaTabel').html('Rp.' + sumkoma);
+    $('#biayaKoma').html('Rp.' + sumkoma)    ;
   })
 })
 

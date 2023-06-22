@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AdminController;
-use App\Http\Controllers\Auth\PolaTarifController;
-use App\Http\Controllers\Auth\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,3 +31,7 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
