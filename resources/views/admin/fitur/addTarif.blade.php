@@ -5,7 +5,7 @@
         <!-- Nama Klinik -->
         <div class="mt-4">
             <x-input-label for="klinik" :value="__('Klinik')" />
-            <x-form-select name="nama_klinik" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" >
+            <x-form-select name="nama_klinik" class="block py-2 px-2 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" >
                 @foreach ($kliniks as $klinik)
                     <option name="nama_klinik" :value="old('{{$klinik->nama_klinik}}')">{{$klinik->nama_klinik}}</option>
                 @endforeach

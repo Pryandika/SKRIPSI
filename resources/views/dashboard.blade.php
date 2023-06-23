@@ -3,6 +3,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                  {{ __('Selamat Datang') }} <u>{{$auser->name}}!</u>
             </h2>
+
         </x-slot>
 
         <div class="py-12">
@@ -40,7 +41,7 @@
 
                                                                     <input id="klinik_tujuan"
                                                                         name="klinik_tujuan"
-                                                                        class="font-semibold text-xl text-gray-800 leading-tight mb-2" value="{{$klinik->nama_klinik}}" disabled>
+                                                                        class="col-xs-4 font-semibold text-xl text-gray-800 leading-tight mb-2" value="{{$klinik->nama_klinik}}" disabled>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                           </button>
@@ -50,7 +51,7 @@
                                                                     <div class="modal-body">
                                                                         <!-- /.Body -->
 
-                                                                        @foreach($days as $day)
+                                                                        @foreach($days as $key => $day)
                                                                         <div hidden> {{$sisaAntri = $user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->whereNotNull('no_antrian')->count()}}</div>
                                                                         {{-- <input class="bg-blue font-semibold text-xl text-gray-800 leading-tight mb-2" name="no_antriana" id="no_antriana"
                                                                         value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> --}}
@@ -66,10 +67,12 @@
                                                                         <div class="mb-4">{{$day['label']}}</div>
                                                                         <div class="row mt-5">
                                                                             <div class="col">
+                                                                                
                                                                                 <div>Sisa Antrian: {{$sisaAntri}}</div>
-                                                                                <div>Estimasi Waktu Dilayani: {{$sisaAntri * 5}} Menit</div>
+                                                                                <div>Estimasi Dilayani: Jam {{\Carbon\Carbon::create($klinik->jam_buka)->addMinute($sisaAntri*10)->format('H:i:s')}}</div>
                                                                             </div>                                                               
-                                                                            <div class="col">
+                                                                            <div class="col ml-auto">
+                                                                                <input id="estimasi_waktu_dashboard" name="estimasi_waktu_dashboard" value="{{\Carbon\Carbon::create($klinik->jam_buka)->addMinute($sisaAntri*10)->format('H:i:s')}}" disabled hidden>
                                                                                 <button type="submit" data-class="sub_abc{{$day['day']}}" class="text-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 sbmit" name="no_antrian" id="no_antrian" value="{{$user->where('klinik_tujuan', $klinik->nama_klinik)->where('role', 'user')->where('tanggal_reservasi', $day['label'])->max('no_antrian') + 1}}" disabled> DAFTAR </button>
                                                                             </div>
                                                                         </div>

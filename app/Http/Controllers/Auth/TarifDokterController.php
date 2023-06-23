@@ -67,6 +67,7 @@ class TarifDokterController extends Controller
 
         $user->biaya = $request->input('biaya');
         $user->no_antrian = null;
+        $user->estimasi_dilayani = null;
         $user->save();
 
         return Redirect::route('tarifdokter');
@@ -87,6 +88,7 @@ class TarifDokterController extends Controller
         event(new Registered($laporan));
         $user->biaya = null;
         $user->no_antrian = null;
+        $user->estimasi_dilayani = null;
         $user->save();
 
         return Redirect::route('tarifdokter');

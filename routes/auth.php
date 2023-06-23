@@ -101,7 +101,7 @@ Route::middleware(['auth','user-role:admin'])->group(function()
     ->name('polatarif');
 
     Route::get('laporan', [LaporanController::class, 'showLaporan'])->name('laporan');
-    Route::get('laporan-update', [LaporanController::class, 'updateRangeLaporan'])->name('laporanupdate');
+    Route::get('laporan-update/search', [LaporanController::class, 'updateRangeLaporan'])->name('laporanupdate');
 
     Route::post('polatarif', [PolaTarifController::class, 'addTarif']);
 

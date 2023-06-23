@@ -28,13 +28,16 @@
                   <x-primary-button class="ml-4">
                     {{ __('Cari') }}
                 </x-primary-button>
-                <form>
-                  <input type="button" class="btn btn-success"  onclick="printDiv('print')" value="Cetak Laporan" />
-              </form>
-              </form>
+
+                  <input type="button" class="btn btn-success"  onclick="printDiv('printDiv')" value="Cetak Laporan" />      
+                
             </div>
+
             <!-- /.card-header -->
-            <div class="card-body" id="print">
+            <div class="card-body" id="printDiv">
+              <span class="h4 mr-5">Pasien Hadir : {{$laporanUpdated->where('status', 'HADIR')->count()}}</span>
+              <span class="h4 mr-5">Pasien Tidak Hadir : {{$laporanUpdated->where('status', 'TIDAK HADIR')->count()}}</span>
+              <span class="h4">Total : {{$laporanUpdated->count()}}</span>
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -46,24 +49,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($laporans as $laporan)
+                  @foreach ($laporanUpdated as $a)
                   <tr>
-                    <td class="text-center">{{$laporan->name}}</td>
-                    <td class="text-center">{{$laporan->tanggal_reservasi}}</td>
-                    <td class="text-center">{{$laporan->klinik_tujuan}}</td>
-                    <td class="text-center">{{$laporan->jalur}}</td>
-                    <td class="text-center">{{$laporan->status}}</td>
+                    <td class="text-center">{{$a->name}}</td>
+                    <td class="text-center">{{$a->tanggal_reservasi}}</td>
+                    <td class="text-center">{{$a->klinik_tujuan}}</td>
+                    <td class="text-center">{{$a->jalur}}</td>
+                    <td class="text-center">{{$a->status}}</td>
                   </tr>
-                  @endforeach
+                  @endforeach                 
                 </tbody>
-                <div class="mt-3 mb-2">
-                  <span class="h4 mr-5">Pasien Hadir : {{$laporan->where('status', 'HADIR')->count()}}</span>
-                  <span class="h4 mr-5">Pasien Tidak Hadir : {{$laporan->where('status', 'TIDAK HADIR')->count()}}</span>
-                  <span class="h4">Total : {{$laporan->count()}}</span>
 
-                </div>
               </table>
-
             </div>
         </div>
       </div>

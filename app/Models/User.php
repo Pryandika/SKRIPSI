@@ -29,6 +29,7 @@ class User extends Authenticatable
         'tanggal_reservasi',
         'biaya',
         'no_antrian',
+        'estimasi_dilayani',
         'role',
         'jalur',
         'ktp',

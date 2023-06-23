@@ -82,6 +82,18 @@
               </div>
               <!-- /.card-body -->
             </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Grafik Kedatangan Pasien</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <h1>{{ $chart2->options['chart_title'] }}</h1>
+                {!! $chart2->renderHtml() !!}
+              </div>
+              <!-- /.card-body -->
+            </div>
             
             <!-- /.card -->
           </div>
@@ -128,6 +140,17 @@
               </div>
               <!-- /.card-body -->
             </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Grafik Kedatangan Pasien</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <h1>{{ $chart3->options['chart_title'] }}</h1>
+                {!! $chart3->renderHtml() !!}
+              </div>
+              <!-- /.card-body -->
+            </div>
             <!-- /.card -->
           </div>
           <!-- /.col -->
@@ -150,7 +173,16 @@
 <script src="../../dist/js/demo.js"></script>
 <!-- Page specific script -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>{!! $chart1->renderJs() !!}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>
+  {!! $chart1->renderChartJsLibrary() !!}
+  {!! $chart1->renderJs() !!}
 
+  {!! $chart2->renderChartJsLibrary() !!}
+  {!! $chart2->renderJs() !!}
+
+  {!! $chart3->renderChartJsLibrary() !!}
+  {!! $chart3->renderJs() !!}
+</script>
 </body>
 </html>

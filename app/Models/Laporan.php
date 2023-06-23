@@ -16,6 +16,4 @@ class Laporan extends Model
         'jalur',
         'status'
     ];
-
-    public $timestamps = false;
 }

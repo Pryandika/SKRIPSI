@@ -22,9 +22,35 @@ class AdminController extends Controller
             ],
             'group_by_field' => 'created_at',
             'group_by_period' => 'day',
-            'chart_type' => 'line',
+            'chart_type' => 'bar',
         ];
         $chart1 = new LaravelChart($chart_options);
+
+        $settings1  = [
+            'chart_title' => 'Jumlah Pasien Hadir',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\Laporan',
+            'conditions'            => [
+                ['condition' => 'status = "HADIR"', 'color' => 'blue', 'fill' => true]
+            ],
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'day',
+            'chart_type' => 'line',
+        ];
+        $chart2 = new LaravelChart($settings1);
+
+        $settings2  = [
+            'chart_title' => 'Jumlah Pasien Tidak Hadir',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\Laporan',
+            'conditions'            => [
+                ['condition' => 'status = "TIDAK HADIR"', 'color' => 'black', 'fill' => true]
+            ],
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'day',
+            'chart_type' => 'line',
+        ];
+        $chart3 = new LaravelChart($settings2);
         
         $user = User::all();
         $totuser = User::where('role', 0)->count();
@@ -32,7 +58,7 @@ class AdminController extends Controller
         $klinik = Klinik::all();
         $totklinik = Klinik::all()->count();
         return view('admin.adminDash', ['users' => $user, 'kliniks' => $klinik ], 
-        compact('chart1', 'totuser', 'totdokter', 'totklinik'));
+        compact('chart1', 'chart2', 'chart3', 'totuser', 'totdokter', 'totklinik'));
     }
 
     public function showTambahDokter()

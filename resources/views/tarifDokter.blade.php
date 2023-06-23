@@ -102,17 +102,13 @@
               </div>
         </div>
 
-
-        
-
-
     </x-app-layout>
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
@@ -120,53 +116,54 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
 <script>
-  $(function() {
+$(function() {
   $(".cbox").on("change", function() {
-    const vals = $(".cbox:checked");
+    const vals = $(".cbox:checked")
       .map(function() {
-        return +this.dataset.price
+        return +this.dataset.price;
       })
       .get();
     // test we have an array of values   
-    const sum = vals.length>0 ? vals.reduce((a, b) => a + b) : 0; // if no, zero sum
+    const sum = vals.length > 0 ? vals.reduce((a, b) => a + b) : 0; // if no, zero sum
     const sumkoma = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     $('#biaya').val(sum);
 
     // update total biaya
     $('#biayaKomaTabel').html('Rp.' + sumkoma);
-    $('#biayaKoma').html('Rp.' + sumkoma)    ;
-  })
-})
+    $('#biayaKoma').html('Rp.' + sumkoma);
+  });
+});
 
 
-    $(document).ready(function () {
+$(document).ready(function () {
+  $(document).on('click', '.editbtn', function(){
+    var user_id = $(this).val();
 
-      $(document).on('click', '.editbtn', function(){
-        
-        var user_id = $(this).val();
+    // alert(user_id);
+    $('#editModal').modal('show');
 
-        //alert(user_id);
-        $('#editModal').modal('show');
+    $.ajax({
+      type: "GET",
+      url: "/edit-tarifdokter/" + user_id,
+      success: function (response) {
+        $('#id').val(response.user.id);
+        $('#name').val(response.user.name);
+        $('#biaya').val(response.user.biaya);
+        console.log(response);
+      }
+    });
 
-        $.ajax({
-          type: "GET",
-          url: "/edit-tarifdokter/"+user_id,
-          success: function (response){
-            $('#id').val(response.user.id);
-            $('#name').val(response.user.name);
-            $('#biaya').val(response.user.biaya);
-          }
-        });
-
-             // update koma pada tabel
-      var table = document.getElementById("tabelTindakan");
-      var tbodyRowCount = table.tBodies[0].rows.length;
-      for (let index = 0; index < tbodyRowCount; index++){
+    // update koma pada tabel
+    var table = document.getElementById("tabelTindakan");
+    var tbodyRowCount = table.tBodies[0].rows.length;
+    for (let index = 0; index < tbodyRowCount; index++){
       var angkaTabelKoma = document.getElementById('tabelBiaya'+[index]).value;
       const konfersiKoma = angkaTabelKoma.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       document.getElementById('biayaKomaTabel'+[index]).innerHTML = 'Rp. ' + konfersiKoma;
     }
-   });
+  });
 });
+
 </script>
