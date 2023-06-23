@@ -314,6 +314,5 @@
     document.getElementById("biayaKoma").innerHTML = "Rp." + koma;
   }
     </script>
-    <
 </body>
 </html> 

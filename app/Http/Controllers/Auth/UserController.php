@@ -100,11 +100,11 @@ class UserController extends Controller
         $userall = User::all();
         $klinikT = Klinik::where('nama_klinik', $klinik)->first();
         $user = User::find($id);
+        $user->klinik_tujuan = $klinik;
+        $user->tanggal_reservasi = $request->input('tanggal_reservasi');
         $antrian = $userall->where('klinik_tujuan', $klinik)->where('role', 'user')->where('tanggal_reservasi', $user->tanggal_reservasi)->whereNotNull('no_antrian')->count();
         $user->no_antrian = $request->input('no_antrian');
         $user->estimasi_dilayani = Carbon::create($klinikT->jam_buka)->addMinute($antrian*10)->format('H:i:s');
-        $user->klinik_tujuan = $klinik;
-        $user->tanggal_reservasi = $request->input('tanggal_reservasi');
 
         // return response()->json($estimasi_dilayani);
 
