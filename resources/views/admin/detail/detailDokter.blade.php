@@ -14,26 +14,28 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th class="text-center">Nama</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Klinik</th>
-                    <th class="text-center">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($users->where('role', 'dokter') as $user)
-                  <tr>
-                    <td class="text-center">{{$user->name}}</td>
-                    <td class="text-center">{{$user->email}}</td>
-                    <td class="text-center">{{$user->klinik_tujuan}}</td>
-                    <td class="text-center"><a href="{{ url('/admin/detail-dokter/delete/' . $user->id) }}" class="btn btn-xs btn-danger pull-right ">Delete</a></td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive-lg">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Nama</th>
+                      <th class="text-center">Email</th>
+                      <th class="text-center">Klinik</th>
+                      <th class="text-center">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($users->where('role', 'dokter') as $user)
+                    <tr>
+                      <td class="text-center">{{$user->name}}</td>
+                      <td class="text-center">{{$user->email}}</td>
+                      <td class="text-center">{{$user->klinik_tujuan}}</td>
+                      <td class="text-center"><a href="{{ url('/admin/detail-dokter/delete/' . $user->id) }}" class="btn btn-xs btn-danger pull-right ">Delete</a></td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
         </div>
       </div>
