@@ -16,7 +16,6 @@ class LaporanController extends Controller
 {
     public function showLaporan(Request $request)
     {
-        $today = Carbon::now()->format('l, d F Y');
         $user = User::all();
         $klinik = Klinik::all();
         $laporan = Laporan::all();
@@ -27,9 +26,9 @@ class LaporanController extends Controller
         $newDate1 = new DateTime($date1);
         $newDate2 = new DateTime($date2);
 
-        $laporanUpdated = Laporan::whereBetween('tanggal_reservasi', [
-            $newDate1->format('l, d F Y'),
-            $newDate2->format('l, d F Y'),
+        $laporanUpdated = Laporan::whereBetween('created_at', [
+            $newDate1,
+            Carbon::parse($newDate2)->endOfDay()
         ])->get();
 
 
@@ -39,16 +38,16 @@ class LaporanController extends Controller
     public function updateRangeLaporan(Request $request)
     {
         $today = Carbon::now()->format('l, d F Y');
-        $date1 = $request->input('date1');
-        $date2 = $request->input('date2');
+        
+        $date1 = Carbon::parse($request->input('date1'))->startOfDay();
+        $date2 = Carbon::parse($request->input('date2'))->endOfDay();
 
-        $newDate1 = Carbon::parse($date1);
-        $newDate2 = Carbon::parse($date2);
+        $newDate1 = new DateTime($date1);
+        $newDate2 = new DateTime($date2);
 
-        $laporanUpdated = Laporan::whereBetween('tanggal_reservasi', [
-            $newDate1->format('l, d F Y'),
-            $newDate2->format('l, d F Y'),
-        ])->get();
+        $laporanUpdated = Laporan::whereDate('created_at', '>=', $date1)
+        ->whereDate('created_at', '<=', $date2)
+        ->get();
 
         $user = User::all();
         $klinik = Klinik::all();

@@ -197,10 +197,8 @@
                 travelMode: google.maps.TravelMode['DRIVING']
             };
             directionsService.route(request, function(response, status) {
-              // console.log(response.routes[2].legs[0].duration.text);
                     var durasi = response.routes[0].legs[0].duration.text;
                     document.getElementById("waktu").innerHTML = durasi;
-                // clear former polylines
                 for(var j in  polylines ) {
                     polylines[j].setMap(null);
                     shadows[j].setMap(null);
